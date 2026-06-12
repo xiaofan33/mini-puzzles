@@ -1,7 +1,11 @@
 import { defineConfig } from "vite";
-import vue from "@vitejs/plugin-vue";
 import tailwindcss from "@tailwindcss/vite";
+import vue from "@vitejs/plugin-vue";
+import { viteAlias } from "../alias";
 
 export default defineConfig({
-  plugins: [vue(), tailwindcss()],
+  plugins: [tailwindcss(), vue()],
+  resolve: {
+    alias: viteAlias,
+  },
 });
