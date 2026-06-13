@@ -20,8 +20,8 @@ export interface GameProps {
   rows: number
   cols: number
   mineCount: number
-  cellBits?: readonly [number /**index */, number /**bitmask */][]
   elapsedTime?: number
+  cellBitmask?: readonly [number /**index */, number /**bitmask */][]
 }
 
 export const defaultProps: Readonly<GameProps> = {
@@ -37,7 +37,7 @@ const adjacentOffsets = [
   [-1,  1], [0,  1], [1,  1],
 ] as const
 
-const cellFlags = {
+const bitFlags = {
   reveal: 0x1,
   mine: 0x2,
   flag: 0x4,
@@ -48,14 +48,13 @@ class MinesweeperModel {
   state: GameState = 'ready'
   timer: { elapsedTime: number; startAt?: number } = { elapsedTime: 0 }
   cells: Cell[] = []
-
-  private mineIndices: number[] = []
-  private flagIndices: Set<number> = new Set()
+  mineIndices: number[] = []
+  flagIndices: Set<number> = new Set()
   private adjacentCellsCache: WeakMap<Cell, Cell[]> = new WeakMap()
   private remainingToReveal = 0
 
   restore(props: GameProps) {
-    const { elapsedTime = 0, cellBits, ...rest } = props
+    const { elapsedTime = 0, cellBitmask, ...rest } = props
     const totalCells = rest.rows * rest.cols
     const needsInit =
       rest.rows !== this.props.rows ||
@@ -74,7 +73,7 @@ class MinesweeperModel {
         Object.assign(c, {
           mine: false,
           state: 'covered',
-          adjacentMineCount: void 0,
+          adjacentMineCount: undefined,
         })
       })
     }
@@ -86,8 +85,8 @@ class MinesweeperModel {
     this.flagIndices.clear()
     this.remainingToReveal = totalCells - rest.mineCount
 
-    if (cellBits?.length) {
-      this.applyCellBits(cellBits)
+    if (cellBitmask?.length) {
+      this.applyCellBitmask(cellBitmask)
       this.timer.startAt = Date.now()
       this.state = 'playing'
     }
@@ -108,13 +107,13 @@ class MinesweeperModel {
     this.state = 'playing'
   }
 
-  dumpCells() {
+  dumpCellBitmask() {
     return this.cells.flatMap(c => {
-      const bit =
-        (c.mine ? cellFlags.mine : 0) |
-        (c.state === 'revealed' ? cellFlags.reveal : 0) |
-        (c.state === 'flagged' ? cellFlags.flag : 0)
-      return bit > 0 ? [[c.index, bit] as [number, number]] : []
+      const bitmask =
+        (c.mine ? bitFlags.mine : 0) |
+        (c.state === 'revealed' ? bitFlags.reveal : 0) |
+        (c.state === 'flagged' ? bitFlags.flag : 0)
+      return bitmask > 0 ? [[c.index, bitmask] as [number, number]] : []
     })
   }
 
@@ -123,9 +122,12 @@ class MinesweeperModel {
     if (startAt) {
       elapsedTime += Date.now() - startAt
     }
-    const cellBits = this.dumpCells()
 
-    return { elapsedTime, cellBits, ...this.props }
+    return {
+      ...this.props,
+      elapsedTime,
+      cellBitmask: this.dumpCellBitmask(),
+    }
   }
 
   operate(cell: Cell, op: Operation) {
@@ -297,21 +299,21 @@ class MinesweeperModel {
     }
   }
 
-  private applyCellBits(bits: readonly [number, number][]) {
+  private applyCellBitmask(cellBitmask: readonly [number, number][]) {
     const revealed: Cell[] = []
 
-    bits.forEach(([index, bit]) => {
+    cellBitmask.forEach(([index, bitmask]) => {
       const cell = this.cells[index]
-      if (bit & cellFlags.reveal) {
+      if (bitmask & bitFlags.reveal) {
         cell.state = 'revealed'
         revealed.push(cell)
         this.remainingToReveal--
       }
-      if (bit & cellFlags.flag) {
+      if (bitmask & bitFlags.flag) {
         cell.state = 'flagged'
         this.flagIndices.add(index)
       }
-      if (bit & cellFlags.mine) {
+      if (bitmask & bitFlags.mine) {
         cell.mine = true
         this.mineIndices.push(index)
       }
