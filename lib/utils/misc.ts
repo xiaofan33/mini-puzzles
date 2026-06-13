@@ -1,5 +1,5 @@
 export function sleep(wait: number) {
-  return new Promise((resolve) => setTimeout(resolve, wait));
+  return new Promise(resolve => setTimeout(resolve, wait))
 }
 
 /**
@@ -8,11 +8,9 @@ export function sleep(wait: number) {
  */
 export function randomInt(min: number, max: number) {
   if (min > max) {
-    throw new RangeError(
-      `randomInt: min (${min}) must not exceed max (${max})`,
-    );
+    throw new RangeError(`randomInt: min (${min}) must not exceed max (${max})`)
   }
-  return Math.floor(Math.random() * (max - min + 1)) + min;
+  return Math.floor(Math.random() * (max - min + 1)) + min
 }
 
 /**
@@ -24,26 +22,26 @@ export function randomWeighted<T extends { weight: number }>(
   items: readonly T[],
 ): T {
   if (items.length === 0) {
-    throw new Error("randomWeighted: items must not be empty");
+    throw new Error('randomWeighted: items must not be empty')
   }
 
   const totalWeight = items.reduce((sum, item) => {
     if (item.weight < 0) {
       throw new Error(
         `randomWeighted: negative weight (${item.weight}) is not allowed`,
-      );
+      )
     }
-    return sum + item.weight;
-  }, 0);
+    return sum + item.weight
+  }, 0)
 
-  let random = Math.random() * totalWeight;
+  let random = Math.random() * totalWeight
 
   for (const item of items) {
-    random -= item.weight;
+    random -= item.weight
     if (random <= 0) {
-      return item;
+      return item
     }
   }
 
-  return items[items.length - 1];
+  return items[items.length - 1]
 }

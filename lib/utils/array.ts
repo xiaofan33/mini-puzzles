@@ -7,13 +7,13 @@ export function create2DArray<T>(
   fillValue: T | ((rowIndex: number, colIndex: number) => T),
 ) {
   const fill =
-    typeof fillValue === "function"
+    typeof fillValue === 'function'
       ? (fillValue as (r: number, c: number) => T)
-      : () => fillValue;
+      : () => fillValue
 
   return Array.from({ length: rows }, (_, r) =>
     Array.from({ length: cols }, (_, c) => fill(r, c)),
-  );
+  )
 }
 
 /**
@@ -21,20 +21,20 @@ export function create2DArray<T>(
  * **Mutates the input array.**
  */
 export function arrayShuffle<T>(items: T[], sampleSize?: number) {
-  const sourceLength = items.length;
+  const sourceLength = items.length
   const targetLength =
     sampleSize !== undefined
       ? Math.min(Math.max(0, Math.floor(sampleSize)), sourceLength)
-      : sourceLength;
+      : sourceLength
 
   if (targetLength === 0) {
-    return [];
+    return []
   }
 
   for (let i = 0; i < targetLength; i++) {
-    const j = i + Math.floor(Math.random() * (sourceLength - i));
-    [items[i], items[j]] = [items[j], items[i]];
+    const j = i + Math.floor(Math.random() * (sourceLength - i))
+    ;[items[i], items[j]] = [items[j], items[i]]
   }
 
-  return items.slice(0, targetLength);
+  return items.slice(0, targetLength)
 }
