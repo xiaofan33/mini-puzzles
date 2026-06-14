@@ -1,7 +1,9 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import Game2048 from '@/2048/vue/index.vue'
+</script>
 
 <template>
   <div>
-    <h1 class="text-3xl font-bold text-center text-red-500">Hello</h1>
+    <Game2048 />
   </div>
 </template>
