@@ -1,17 +1,28 @@
 {
+  "name": "mini-puzzles",
+  "private": true,
   "type": "module",
   "scripts": {
-    "dev:www": "pnpm --filter www dev",
-    "build:www": "pnpm --filter www build",
+    "dev": "pnpm --filter www dev",
+    "build": "pnpm --filter www build",
     "test": "vitest",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "prepare": "simple-git-hooks"
+  },
+  "simple-git-hooks": {
+    "pre-commit": "npx lint-staged"
+  },
+  "lint-staged": {
+    "*.{js,ts,vue,json,css}": "prettier --write"
   },
   "devDependencies": {
-    "@tailwindcss/vite": "^4.3.0",
+    "@tailwindcss/vite": "^4.3.1",
     "@types/node": "^25.9.3",
     "@vitejs/plugin-vue": "^6.0.7",
+    "lint-staged": "^15.5.2",
     "prettier": "^3.8.4",
-    "tailwindcss": "^4.3.0",
+    "simple-git-hooks": "^2.13.1",
+    "tailwindcss": "^4.3.1",
     "typescript": "^6.0.3",
     "vite": "^8.0.16",
     "vitest": "^4.1.8"
