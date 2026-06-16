@@ -278,7 +278,7 @@ class Game2048Model {
   }
 }
 
-export function createModel(props: GameProps) {
+export function createModel(props: GameProps = defaultProps) {
   const m = new Game2048Model()
   m.restore(props)
   return m

@@ -13,7 +13,7 @@
     "pre-commit": "npx lint-staged"
   },
   "lint-staged": {
-    "*.{js,ts,vue,json,css}": "prettier --write"
+    "*.{js,ts,vue,json}": "prettier --write"
   },
   "devDependencies": {
     "@tailwindcss/vite": "^4.3.1",
