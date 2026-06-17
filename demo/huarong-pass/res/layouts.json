@@ -1,0 +1,161 @@
+[
+  {
+    "title": "横刀立马",
+    "minSteps": 81,
+    "pieces": [
+      { "type": "CaoCao", "name": "曹操", "x": 1, "y": 0, "w": 2, "h": 2 },
+      { "type": "General", "name": "张飞", "x": 0, "y": 0, "w": 1, "h": 4 },
+      { "type": "General", "name": "赵云", "x": 3, "y": 0, "w": 1, "h": 4 },
+      { "type": "General", "name": "黄忠", "x": 3, "y": 2, "w": 1, "h": 2 },
+      { "type": "GuanYu", "name": "关羽", "x": 1, "y": 2, "w": 2, "h": 1 },
+      { "type": "Pawn", "name": "兵", "x": 1, "y": 3, "w": 1, "h": 1 },
+      { "type": "Pawn", "name": "兵", "x": 2, "y": 3, "w": 1, "h": 1 },
+      { "type": "Pawn", "name": "兵", "x": 0, "y": 4, "w": 1, "h": 1 },
+      { "type": "Pawn", "name": "兵", "x": 3, "y": 4, "w": 1, "h": 1 }
+    ]
+  },
+  {
+    "title": "指挥若定",
+    "minSteps": 70,
+    "pieces": [
+      { "type": "CaoCao", "name": "曹操", "x": 0, "y": 0, "w": 2, "h": 2 },
+      { "type": "General", "name": "张飞", "x": 2, "y": 0, "w": 1, "h": 4 },
+      { "type": "General", "name": "赵云", "x": 3, "y": 0, "w": 1, "h": 4 },
+      { "type": "GuanYu", "name": "关羽", "x": 0, "y": 2, "w": 2, "h": 1 },
+      { "type": "General", "name": "黄忠", "x": 2, "y": 2, "w": 1, "h": 2 },
+      { "type": "General", "name": "马超", "x": 3, "y": 2, "w": 1, "h": 2 },
+      { "type": "Pawn", "name": "兵", "x": 0, "y": 3, "w": 1, "h": 1 },
+      { "type": "Pawn", "name": "兵", "x": 1, "y": 3, "w": 1, "h": 1 },
+      { "type": "Pawn", "name": "兵", "x": 0, "y": 4, "w": 1, "h": 1 },
+      { "type": "Pawn", "name": "兵", "x": 3, "y": 4, "w": 1, "h": 1 }
+    ]
+  },
+  {
+    "title": "兵分三路",
+    "minSteps": 72,
+    "pieces": [
+      { "type": "CaoCao", "name": "曹操", "x": 0, "y": 0, "w": 2, "h": 2 },
+      { "type": "General", "name": "赵云", "x": 2, "y": 0, "w": 1, "h": 4 },
+      { "type": "Pawn", "name": "兵", "x": 3, "y": 0, "w": 1, "h": 1 },
+      { "type": "Pawn", "name": "兵", "x": 3, "y": 1, "w": 1, "h": 1 },
+      { "type": "General", "name": "张飞", "x": 0, "y": 2, "w": 1, "h": 2 },
+      { "type": "GuanYu", "name": "关羽", "x": 1, "y": 2, "w": 2, "h": 1 },
+      { "type": "General", "name": "黄忠", "x": 3, "y": 2, "w": 1, "h": 2 },
+      { "type": "General", "name": "马超", "x": 1, "y": 3, "w": 1, "h": 2 },
+      { "type": "Pawn", "name": "兵", "x": 2, "y": 3, "w": 1, "h": 1 },
+      { "type": "Pawn", "name": "兵", "x": 2, "y": 4, "w": 1, "h": 1 }
+    ]
+  },
+  {
+    "title": "水泄不通",
+    "minSteps": 79,
+    "pieces": [
+      { "type": "CaoCao", "name": "曹操", "x": 1, "y": 0, "w": 2, "h": 2 },
+      { "type": "General", "name": "张飞", "x": 0, "y": 0, "w": 1, "h": 4 },
+      { "type": "General", "name": "赵云", "x": 3, "y": 0, "w": 1, "h": 4 },
+      { "type": "General", "name": "马超", "x": 0, "y": 2, "w": 1, "h": 2 },
+      { "type": "GuanYu", "name": "关羽", "x": 1, "y": 2, "w": 2, "h": 1 },
+      { "type": "General", "name": "黄忠", "x": 3, "y": 2, "w": 1, "h": 2 },
+      { "type": "Pawn", "name": "兵", "x": 1, "y": 3, "w": 1, "h": 1 },
+      { "type": "Pawn", "name": "兵", "x": 2, "y": 3, "w": 1, "h": 1 },
+      { "type": "Pawn", "name": "兵", "x": 0, "y": 4, "w": 1, "h": 1 },
+      { "type": "Pawn", "name": "兵", "x": 3, "y": 4, "w": 1, "h": 1 }
+    ]
+  },
+  {
+    "title": "近在咫尺",
+    "minSteps": 98,
+    "pieces": [
+      { "type": "CaoCao", "name": "曹操", "x": 1, "y": 0, "w": 2, "h": 2 },
+      { "type": "Pawn", "name": "兵", "x": 0, "y": 0, "w": 1, "h": 1 },
+      { "type": "Pawn", "name": "兵", "x": 3, "y": 0, "w": 1, "h": 1 },
+      { "type": "General", "name": "张飞", "x": 0, "y": 1, "w": 1, "h": 2 },
+      { "type": "General", "name": "黄忠", "x": 3, "y": 1, "w": 1, "h": 2 },
+      { "type": "GuanYu", "name": "关羽", "x": 1, "y": 2, "w": 2, "h": 1 },
+      { "type": "General", "name": "赵云", "x": 0, "y": 3, "w": 1, "h": 2 },
+      { "type": "General", "name": "马超", "x": 1, "y": 3, "w": 1, "h": 2 },
+      { "type": "Pawn", "name": "兵", "x": 2, "y": 3, "w": 1, "h": 1 },
+      { "type": "Pawn", "name": "兵", "x": 3, "y": 3, "w": 1, "h": 1 }
+    ]
+  },
+  {
+    "title": "小燕出巢",
+    "minSteps": 103,
+    "pieces": [
+      { "type": "CaoCao", "name": "曹操", "x": 0, "y": 0, "w": 2, "h": 2 },
+      { "type": "General", "name": "张飞", "x": 2, "y": 0, "w": 1, "h": 2 },
+      { "type": "Pawn", "name": "兵", "x": 3, "y": 0, "w": 1, "h": 1 },
+      { "type": "Pawn", "name": "兵", "x": 3, "y": 1, "w": 1, "h": 1 },
+      { "type": "GuanYu", "name": "关羽", "x": 0, "y": 2, "w": 2, "h": 1 },
+      { "type": "General", "name": "赵云", "x": 2, "y": 2, "w": 1, "h": 2 },
+      { "type": "General", "name": "黄忠", "x": 3, "y": 2, "w": 1, "h": 2 },
+      { "type": "Pawn", "name": "兵", "x": 0, "y": 3, "w": 1, "h": 1 },
+      { "type": "General", "name": "马超", "x": 1, "y": 3, "w": 1, "h": 2 },
+      { "type": "Pawn", "name": "兵", "x": 3, "y": 4, "w": 1, "h": 1 }
+    ]
+  },
+  {
+    "title": "层层设防",
+    "minSteps": 102,
+    "pieces": [
+      { "type": "CaoCao", "name": "曹操", "x": 1, "y": 0, "w": 2, "h": 2 },
+      { "type": "General", "name": "张飞", "x": 0, "y": 0, "w": 1, "h": 2 },
+      { "type": "Pawn", "name": "兵", "x": 3, "y": 0, "w": 1, "h": 1 },
+      { "type": "Pawn", "name": "兵", "x": 3, "y": 1, "w": 1, "h": 1 },
+      { "type": "General", "name": "赵云", "x": 0, "y": 2, "w": 1, "h": 2 },
+      { "type": "GuanYu", "name": "关羽", "x": 1, "y": 2, "w": 2, "h": 1 },
+      { "type": "General", "name": "黄忠", "x": 3, "y": 2, "w": 1, "h": 2 },
+      { "type": "General", "name": "马超", "x": 1, "y": 3, "w": 1, "h": 2 },
+      { "type": "Pawn", "name": "兵", "x": 2, "y": 3, "w": 1, "h": 1 },
+      { "type": "Pawn", "name": "兵", "x": 2, "y": 4, "w": 1, "h": 1 }
+    ]
+  },
+  {
+    "title": "四面楚歌",
+    "minSteps": 56,
+    "pieces": [
+      { "type": "CaoCao", "name": "曹操", "x": 1, "y": 0, "w": 2, "h": 2 },
+      { "type": "Pawn", "name": "兵", "x": 0, "y": 0, "w": 1, "h": 1 },
+      { "type": "Pawn", "name": "兵", "x": 3, "y": 0, "w": 1, "h": 1 },
+      { "type": "General", "name": "张飞", "x": 0, "y": 1, "w": 1, "h": 2 },
+      { "type": "General", "name": "黄忠", "x": 3, "y": 1, "w": 1, "h": 2 },
+      { "type": "GuanYu", "name": "关羽", "x": 1, "y": 2, "w": 2, "h": 1 },
+      { "type": "General", "name": "赵云", "x": 0, "y": 3, "w": 1, "h": 2 },
+      { "type": "Pawn", "name": "兵", "x": 1, "y": 3, "w": 1, "h": 1 },
+      { "type": "Pawn", "name": "兵", "x": 2, "y": 3, "w": 1, "h": 1 },
+      { "type": "General", "name": "马超", "x": 3, "y": 3, "w": 1, "h": 2 }
+    ]
+  },
+  {
+    "title": "齐头并进",
+    "minSteps": 60,
+    "pieces": [
+      { "type": "CaoCao", "name": "曹操", "x": 1, "y": 0, "w": 2, "h": 2 },
+      { "type": "General", "name": "张飞", "x": 0, "y": 0, "w": 1, "h": 2 },
+      { "type": "General", "name": "赵云", "x": 3, "y": 0, "w": 1, "h": 2 },
+      { "type": "General", "name": "马超", "x": 0, "y": 2, "w": 1, "h": 2 },
+      { "type": "Pawn", "name": "兵", "x": 1, "y": 2, "w": 1, "h": 1 },
+      { "type": "Pawn", "name": "兵", "x": 2, "y": 2, "w": 1, "h": 1 },
+      { "type": "General", "name": "黄忠", "x": 3, "y": 2, "w": 1, "h": 2 },
+      { "type": "GuanYu", "name": "关羽", "x": 1, "y": 3, "w": 2, "h": 1 },
+      { "type": "Pawn", "name": "兵", "x": 0, "y": 4, "w": 1, "h": 1 },
+      { "type": "Pawn", "name": "兵", "x": 3, "y": 4, "w": 1, "h": 1 }
+    ]
+  },
+  {
+    "title": "将拥曹营",
+    "minSteps": 72,
+    "pieces": [
+      { "type": "CaoCao", "name": "曹操", "x": 1, "y": 0, "w": 2, "h": 2 },
+      { "type": "General", "name": "张飞", "x": 0, "y": 0, "w": 1, "h": 4 },
+      { "type": "General", "name": "黄忠", "x": 3, "y": 0, "w": 1, "h": 2 },
+      { "type": "General", "name": "马超", "x": 0, "y": 2, "w": 1, "h": 2 },
+      { "type": "GuanYu", "name": "关羽", "x": 1, "y": 2, "w": 2, "h": 1 },
+      { "type": "General", "name": "赵云", "x": 3, "y": 2, "w": 1, "h": 2 },
+      { "type": "Pawn", "name": "兵", "x": 1, "y": 3, "w": 1, "h": 1 },
+      { "type": "Pawn", "name": "兵", "x": 0, "y": 4, "w": 1, "h": 1 },
+      { "type": "Pawn", "name": "兵", "x": 1, "y": 4, "w": 1, "h": 1 },
+      { "type": "Pawn", "name": "兵", "x": 3, "y": 4, "w": 1, "h": 1 }
+    ]
+  }
+]
