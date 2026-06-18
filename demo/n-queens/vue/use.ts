@@ -5,15 +5,15 @@ import {
   useTimestamp,
   useWebWorkerFn,
 } from '@vueuse/core'
-import { nQueens$4 } from '../solutions'
+import { nQueens$4, validateN } from '../solutions'
 
 export function useSolutions(playInterval = 4500) {
   const { workerFn, workerTerminate } = useWebWorkerFn(
     n => JSON.stringify(nQueens$4(n)),
-    { localDependencies: [nQueens$4] },
+    { localDependencies: [nQueens$4, validateN] },
   )
 
-  const solutions = ref<Number[][]>([])
+  const solutions = ref<number[][]>([])
   const index = ref(0)
   const total = computed(() => solutions.value.length)
   const currSolution = computed(() => solutions.value[index.value])

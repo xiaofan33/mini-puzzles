@@ -1,4 +1,4 @@
-function validateN(n: number) {
+export function validateN(n: number) {
   if (n < 1 || n > 15) {
     throw new RangeError('n must be between 1 and 15')
   }

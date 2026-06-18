@@ -24,9 +24,17 @@ export const demoRoutes: RouteRecordRaw[] = [
     },
   },
   {
-    name: '八皇后问题摆法演示',
+    name: '八皇后问题摆法',
     path: '/n-queens',
     component: () => import('@/n-queens/vue/index.vue'),
+    meta: {
+      description: '',
+    },
+  },
+  {
+    name: '华容道',
+    path: '/huarong-pass',
+    component: () => import('@/huarong-pass/vue/index.vue'),
     meta: {
       description: '',
     },
