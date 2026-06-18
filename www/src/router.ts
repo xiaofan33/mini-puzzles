@@ -28,7 +28,7 @@ export const demoRoutes: RouteRecordRaw[] = [
     path: '/n-queens',
     component: () => import('@/n-queens/vue/index.vue'),
     meta: {
-      description: '',
+      description: '用来展示八皇后问题的可行摆法组件',
     },
   },
   {
@@ -36,7 +36,15 @@ export const demoRoutes: RouteRecordRaw[] = [
     path: '/huarong-pass',
     component: () => import('@/huarong-pass/vue/index.vue'),
     meta: {
-      description: '',
+      description: '曹瞒兵败走华容，正与关公狭路逢',
+    },
+  },
+  {
+    name: '滑动拼图',
+    path: '/sliding-puzzle',
+    component: () => import('@/sliding-puzzle/vue/index.vue'),
+    meta: {
+      description: '滑块拼图小游戏，又名《数字华容道》',
     },
   },
 ]
