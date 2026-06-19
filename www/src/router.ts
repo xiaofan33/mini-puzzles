@@ -49,8 +49,8 @@ export const demoRoutes: RouteRecordRaw[] = [
   },
   {
     name: '康威生命游戏',
-    path: '/game-life',
-    component: () => import('@/game-life/vue/index.vue'),
+    path: '/life-game',
+    component: () => import('@/life-game/vue/index.vue'),
     meta: {
       description: '',
     },
