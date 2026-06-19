@@ -1,0 +1,51 @@
+{
+  "gameModes": [
+    {
+      "key": "easy",
+      "txt": "初级",
+      "cols": 9,
+      "rows": 9,
+      "mineCount": 10
+    },
+    {
+      "key": "medium",
+      "txt": "中级",
+      "cols": 16,
+      "rows": 16,
+      "mineCount": 40
+    },
+    {
+      "key": "hard",
+      "txt": "高级",
+      "cols": 30,
+      "rows": 16,
+      "mineCount": 99
+    },
+    {
+      "key": "custom",
+      "txt": "自定义",
+      "cols": 30,
+      "rows": 16,
+      "mineCount": 99
+    }
+  ],
+
+  "settings": {
+    "cols": 9,
+    "rows": 9,
+    "mineCount": 10,
+
+    "palette": "sky",
+
+    "size": 34,
+    "radius": 2,
+    "gap": 2,
+
+    "autoSave": true,
+    "flagMode": false,
+    "fastMode": true
+  },
+
+  "lastGameStoreKey": "g-minesweeper-last-game",
+  "settingsStoreKey": "g-minesweeper-settings"
+}

@@ -344,7 +344,7 @@ class MinesweeperModel {
   }
 }
 
-export function createModel(props: GameProps) {
+export function createModel(props: GameProps = defaultProps) {
   const m = new MinesweeperModel()
   m.restore(props)
   return m

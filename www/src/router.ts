@@ -47,6 +47,14 @@ export const demoRoutes: RouteRecordRaw[] = [
       description: '滑块拼图小游戏，又名《数字华容道》',
     },
   },
+  {
+    name: '康威生命游戏',
+    path: '/game-life',
+    component: () => import('@/game-life/vue/index.vue'),
+    meta: {
+      description: '',
+    },
+  },
 ]
 
 export const router = createRouter({
