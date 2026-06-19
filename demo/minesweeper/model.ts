@@ -219,7 +219,7 @@ class MinesweeperModel {
   }
 
   private reveal(cell: Cell) {
-    if (cell.state === 'revealed') {
+    if (cell.state !== 'covered') {
       return
     }
 
@@ -265,9 +265,6 @@ class MinesweeperModel {
     }
 
     for (const c of adjacentCells) {
-      if (this.state !== 'playing') {
-        break
-      }
       this.reveal(c)
     }
   }
@@ -334,6 +331,12 @@ class MinesweeperModel {
         }
       })
     } else if (this.state === 'lost') {
+      this.mineIndices.forEach(index => {
+        const cell = this.cells[index]
+        if (cell.state === 'covered') {
+          cell.state = 'revealed'
+        }
+      })
       this.flagIndices.forEach(index => {
         const cell = this.cells[index]
         if (!cell.mine) {

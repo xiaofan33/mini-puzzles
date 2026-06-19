@@ -30,7 +30,7 @@
     }
   ],
 
-  "settings": {
+  "defaultSettings": {
     "cols": 9,
     "rows": 9,
     "mineCount": 10,
@@ -38,7 +38,7 @@
     "palette": "sky",
 
     "size": 34,
-    "radius": 2,
+    "rounded": 2,
     "gap": 2,
 
     "autoSave": true,

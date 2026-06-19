@@ -65,7 +65,7 @@ export function useBoardEvent(
   const { width, height, top, left } = useElementBounding(board)
 
   useEventListener(board, 'pointerdown', event => {
-    const notRightClick = event.buttons !== 2
+    const notRightClick = event.button !== 2
     enableHighlight.value = notRightClick
     pointerPosition.value = getRelativePosition(event)
     document.body.addEventListener('pointermove', onPointerMove)

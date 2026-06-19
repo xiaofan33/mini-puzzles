@@ -2,7 +2,7 @@ import configJson from './res/config.json'
 import presetJson from './res/preset.json'
 
 export type EmojiKey = keyof (typeof presetJson)['emojis']
-export type Settings = (typeof configJson)['settings']
+export type Settings = (typeof configJson)['defaultSettings']
 
 export interface ThemePreset {
   emojis: Record<EmojiKey, string>
