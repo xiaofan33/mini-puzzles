@@ -1,5 +1,0 @@
-packages:
-  - 'www'
-allowBuilds:
-  simple-git-hooks: true
-  vue-demi: true
