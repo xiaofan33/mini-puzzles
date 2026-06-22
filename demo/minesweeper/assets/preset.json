@@ -1,0 +1,109 @@
+{
+  "emojis": {
+    "ready": "🙂",
+    "playing": "🤔",
+    "won": "😎",
+    "lost": "😵",
+    "time": "⏱️",
+    "flag": "🚩",
+    "mine": "💣",
+    "boom": "💥"
+  },
+  "numberColors": {
+    "0": "transparent",
+    "1": "#3b82f6",
+    "2": "#22c55e",
+    "3": "#ef4444",
+    "4": "#6366f1",
+    "5": "#f97316",
+    "6": "#a855f7",
+    "7": "#14b8a6",
+    "8": "#ec4899"
+  },
+  "palettes": {
+    "orange": [
+      "border-orange-400 from-orange-300/80 to-orange-400/80 hover:from-orange-300 hover:to-orange-400",
+      "border-orange-300 from-orange-50 to-orange-100"
+    ],
+    "amber": [
+      "border-amber-400 from-amber-300/80 to-amber-400/80 hover:from-amber-300 hover:to-amber-400",
+      "border-amber-300 from-amber-50 to-amber-100"
+    ],
+    "yellow": [
+      "border-yellow-400 from-yellow-300/80 to-yellow-400/80 hover:from-yellow-300 hover:to-yellow-400",
+      "border-yellow-300 from-yellow-50 to-yellow-100"
+    ],
+    "lime": [
+      "border-lime-400 from-lime-300/80 to-lime-400/80 hover:from-lime-300 hover:to-lime-400",
+      "border-lime-300 from-lime-50 to-lime-100"
+    ],
+    "green": [
+      "border-green-400 from-green-300/80 to-green-400/80 hover:from-green-300 hover:to-green-400",
+      "border-green-300 from-green-50 to-green-100"
+    ],
+    "emerald": [
+      "border-emerald-400 from-emerald-300/80 to-emerald-400/80 hover:from-emerald-300 hover:to-emerald-400",
+      "border-emerald-300 from-emerald-50 to-emerald-100"
+    ],
+    "teal": [
+      "border-teal-400 from-teal-300/80 to-teal-400/80 hover:from-teal-300 hover:to-teal-400",
+      "border-teal-300 from-teal-50 to-teal-100"
+    ],
+    "cyan": [
+      "border-cyan-400 from-cyan-300/80 to-cyan-400/80 hover:from-cyan-300 hover:to-cyan-400",
+      "border-cyan-300 from-cyan-50 to-cyan-100"
+    ],
+    "sky": [
+      "border-sky-400 from-sky-300/80 to-sky-400/80 hover:from-sky-300 hover:to-sky-400",
+      "border-sky-300 from-sky-50 to-sky-100"
+    ],
+    "blue": [
+      "border-blue-400 from-blue-300/80 to-blue-400/80 hover:from-blue-300 hover:to-blue-400",
+      "border-blue-300 from-blue-50 to-blue-100"
+    ],
+    "indigo": [
+      "border-indigo-400 from-indigo-300/80 to-indigo-400/80 hover:from-indigo-300 hover:to-indigo-400",
+      "border-indigo-300 from-indigo-50 to-indigo-100"
+    ],
+    "violet": [
+      "border-violet-400 from-violet-300/80 to-violet-400/80 hover:from-violet-300 hover:to-violet-400",
+      "border-violet-300 from-violet-50 to-violet-100"
+    ],
+    "purple": [
+      "border-purple-400 from-purple-300/80 to-purple-400/80 hover:from-purple-300 hover:to-purple-400",
+      "border-purple-300 from-purple-50 to-purple-100"
+    ],
+    "fuchsia": [
+      "border-fuchsia-400 from-fuchsia-300/80 to-fuchsia-400/80 hover:from-fuchsia-300 hover:to-fuchsia-400",
+      "border-fuchsia-300 from-fuchsia-50 to-fuchsia-100"
+    ],
+    "pink": [
+      "border-pink-400 from-pink-300/80 to-pink-400/80 hover:from-pink-300 hover:to-pink-400",
+      "border-pink-300 from-pink-50 to-pink-100"
+    ],
+    "rose": [
+      "border-rose-400 from-rose-300/80 to-rose-400/80 hover:from-rose-300 hover:to-rose-400",
+      "border-rose-300 from-rose-50 to-rose-100"
+    ],
+    "slate": [
+      "border-slate-400 from-slate-300/80 to-slate-400/80 hover:from-slate-300 hover:to-slate-400",
+      "border-slate-300 from-slate-50 to-slate-100"
+    ],
+    "gray": [
+      "border-gray-400 from-gray-300/80 to-gray-400/80 hover:from-gray-300 hover:to-gray-400",
+      "border-gray-300 from-gray-50 to-gray-100"
+    ],
+    "zinc": [
+      "border-zinc-400 from-zinc-300/80 to-zinc-400/80 hover:from-zinc-300 hover:to-zinc-400",
+      "border-zinc-300 from-zinc-50 to-zinc-100"
+    ],
+    "neutral": [
+      "border-neutral-400 from-neutral-300/80 to-neutral-400/80 hover:from-neutral-300 hover:to-neutral-400",
+      "border-neutral-300 from-neutral-50 to-neutral-100"
+    ],
+    "stone": [
+      "border-stone-400 from-stone-300/80 to-stone-400/80 hover:from-stone-300 hover:to-stone-400",
+      "border-stone-300 from-stone-50 to-stone-100"
+    ]
+  }
+}

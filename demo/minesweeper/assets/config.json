@@ -1,0 +1,50 @@
+{
+  "difficulties": [
+    {
+      "key": "easy",
+      "txt": "简单",
+      "w": 9,
+      "h": 9,
+      "m": 10
+    },
+    {
+      "key": "medium",
+      "txt": "中等",
+      "w": 16,
+      "h": 16,
+      "m": 40
+    },
+    {
+      "key": "hard",
+      "txt": "困难",
+      "w": 30,
+      "h": 16,
+      "m": 99
+    },
+    {
+      "key": "custom",
+      "txt": "自定义",
+      "w": 30,
+      "h": 16,
+      "m": 99
+    }
+  ],
+
+  "defaultSettings": {
+    "w": 9,
+    "h": 9,
+    "m": 10,
+    "palette": "sky",
+
+    "size": 34,
+    "radius": 2,
+    "gap": 2,
+
+    "autoSave": true,
+    "fastMode": true,
+    "flagMode": false
+  },
+
+  "lastGameStoreKey": "g-minesweeper-last-game",
+  "settingsStoreKey": "g-minesweeper-settings"
+}
