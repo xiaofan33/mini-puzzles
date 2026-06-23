@@ -1,4 +1,5 @@
 {
+  "defaultDifficulty": "easy",
   "difficulties": [
     {
       "key": "easy",
@@ -30,10 +31,7 @@
     }
   ],
 
-  "defaultSettings": {
-    "w": 9,
-    "h": 9,
-    "m": 10,
+  "userSettings": {
     "palette": "sky",
 
     "size": 34,

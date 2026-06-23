@@ -13,3 +13,21 @@ export function formatTime(seconds: number) {
 
   return `${minutes.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`
 }
+
+export function cellAt(
+  point: { x: number; y: number },
+  cellSize: number,
+  gap: number,
+) {
+  if (point.x < 0 || point.y < 0) return null
+
+  const stride = cellSize + gap
+  const col = Math.floor(point.x / stride)
+  const row = Math.floor(point.y / stride)
+  const localX = point.x - col * stride
+  const localY = point.y - row * stride
+
+  if (localX >= cellSize || localY >= cellSize) return null
+
+  return { x: col, y: row }
+}
