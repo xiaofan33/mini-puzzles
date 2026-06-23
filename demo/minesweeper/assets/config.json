@@ -44,5 +44,40 @@
   },
 
   "lastGameStoreKey": "g-minesweeper-last-game",
-  "settingsStoreKey": "g-minesweeper-settings"
+  "settingsStoreKey": "g-minesweeper-settings",
+
+  "emojis": {
+    "ready": "🙂",
+    "playing": "🤔",
+    "won": "😎",
+    "lost": "😵",
+    "time": "⏱️",
+    "flag": "🚩",
+    "mine": "💣",
+    "boom": "💥"
+  },
+
+  "palettes": [
+    "orange",
+    "amber",
+    "yellow",
+    "lime",
+    "green",
+    "emerald",
+    "teal",
+    "cyan",
+    "sky",
+    "blue",
+    "indigo",
+    "violet",
+    "purple",
+    "fuchsia",
+    "pink",
+    "rose",
+    "slate",
+    "gray",
+    "zinc",
+    "neutral",
+    "stone"
+  ]
 }

@@ -33,7 +33,7 @@ const CELL_FLAGS = {
   mine: 1 << 2, // 0b100
 } as const
 
-class MinesweeperModel {
+export class MinesweeperModel {
   state: GameState = 'ready'
   timer: { elapsedTime: number; startAt?: number } = { elapsedTime: 0 }
   cells: Cell[] = []

@@ -1,3 +1,31 @@
+import { emojis, palettes } from './assets/config.json'
+import { userSettings } from './assets/config.json'
+
+export type EmojiKey = keyof typeof emojis
+export type Settings = typeof userSettings
+
+class ThemeLoader {
+  private emojis: Record<EmojiKey, string>
+  private palettes: string[]
+
+  constructor() {
+    this.emojis = emojis
+    this.palettes = palettes
+  }
+
+  getEmoji(key: EmojiKey) {
+    return this.emojis[key]
+  }
+
+  getRandomPalette(excluded?: string) {
+    const available = this.palettes.filter(key => key !== excluded)
+    const pickIndex = Math.floor(Math.random() * available.length)
+    return available[pickIndex]
+  }
+}
+
+export const themeLoader = new ThemeLoader()
+
 /**
  * Format seconds into MM:SS.
  *
@@ -19,15 +47,16 @@ export function cellAt(
   cellSize: number,
   gap: number,
 ) {
-  if (point.x < 0 || point.y < 0) return null
-
   const stride = cellSize + gap
   const col = Math.floor(point.x / stride)
   const row = Math.floor(point.y / stride)
-  const localX = point.x - col * stride
-  const localY = point.y - row * stride
 
-  if (localX >= cellSize || localY >= cellSize) return null
+  if (
+    point.x - col * stride >= cellSize ||
+    point.y - row * stride >= cellSize
+  ) {
+    return
+  }
 
   return { x: col, y: row }
 }

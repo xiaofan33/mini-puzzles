@@ -1,0 +1,258 @@
+/* 
+ * highlighted | revealed cell 
+ */
+[data-variant='hi'] {
+  --cell-from: var(--cell-hi-from);
+  --cell-to: var(--cell-hi-to);
+}
+
+[data-variant='normal']:hover {
+  --cell-from: var(--c300);
+  --cell-to: var(--c400);
+}
+
+[data-palette='orange'] {
+  --c300: var(--color-orange-300);
+  --c400: var(--color-orange-400);
+  --cell-border: var(--color-orange-400);
+  --cell-from: color-mix(in oklch, var(--c300) 80%, transparent);
+  --cell-to: color-mix(in oklch, var(--c400) 80%, transparent);
+  --cell-hi-from: var(--color-orange-50);
+  --cell-hi-to: var(--color-orange-100);
+}
+
+[data-palette='amber'] {
+  --c300: var(--color-amber-300);
+  --c400: var(--color-amber-400);
+  --cell-border: var(--color-amber-400);
+  --cell-from: color-mix(in oklch, var(--c300) 80%, transparent);
+  --cell-to: color-mix(in oklch, var(--c400) 80%, transparent);
+  --cell-hi-from: var(--color-amber-50);
+  --cell-hi-to: var(--color-amber-100);
+}
+
+[data-palette='yellow'] {
+  --c300: var(--color-yellow-300);
+  --c400: var(--color-yellow-400);
+  --cell-border: var(--color-yellow-400);
+  --cell-from: color-mix(in oklch, var(--c300) 80%, transparent);
+  --cell-to: color-mix(in oklch, var(--c400) 80%, transparent);
+  --cell-hi-from: var(--color-yellow-50);
+  --cell-hi-to: var(--color-yellow-100);
+}
+
+[data-palette='lime'] {
+  --c300: var(--color-lime-300);
+  --c400: var(--color-lime-400);
+  --cell-border: var(--color-lime-400);
+  --cell-from: color-mix(in oklch, var(--c300) 80%, transparent);
+  --cell-to: color-mix(in oklch, var(--c400) 80%, transparent);
+  --cell-hi-from: var(--color-lime-50);
+  --cell-hi-to: var(--color-lime-100);
+}
+
+[data-palette='green'] {
+  --c300: var(--color-green-300);
+  --c400: var(--color-green-400);
+  --cell-border: var(--color-green-400);
+  --cell-from: color-mix(in oklch, var(--c300) 80%, transparent);
+  --cell-to: color-mix(in oklch, var(--c400) 80%, transparent);
+  --cell-hi-from: var(--color-green-50);
+  --cell-hi-to: var(--color-green-100);
+}
+
+[data-palette='emerald'] {
+  --c300: var(--color-emerald-300);
+  --c400: var(--color-emerald-400);
+  --cell-border: var(--color-emerald-400);
+  --cell-from: color-mix(in oklch, var(--c300) 80%, transparent);
+  --cell-to: color-mix(in oklch, var(--c400) 80%, transparent);
+  --cell-hi-from: var(--color-emerald-50);
+  --cell-hi-to: var(--color-emerald-100);
+}
+
+[data-palette='teal'] {
+  --c300: var(--color-teal-300);
+  --c400: var(--color-teal-400);
+  --cell-border: var(--color-teal-400);
+  --cell-from: color-mix(in oklch, var(--c300) 80%, transparent);
+  --cell-to: color-mix(in oklch, var(--c400) 80%, transparent);
+  --cell-hi-from: var(--color-teal-50);
+  --cell-hi-to: var(--color-teal-100);
+}
+
+[data-palette='cyan'] {
+  --c300: var(--color-cyan-300);
+  --c400: var(--color-cyan-400);
+  --cell-border: var(--color-cyan-400);
+  --cell-from: color-mix(in oklch, var(--c300) 80%, transparent);
+  --cell-to: color-mix(in oklch, var(--c400) 80%, transparent);
+  --cell-hi-from: var(--color-cyan-50);
+  --cell-hi-to: var(--color-cyan-100);
+}
+
+[data-palette='sky'] {
+  --c300: var(--color-sky-300);
+  --c400: var(--color-sky-400);
+  --cell-border: var(--color-sky-400);
+  --cell-from: color-mix(in oklch, var(--c300) 80%, transparent);
+  --cell-to: color-mix(in oklch, var(--c400) 80%, transparent);
+  --cell-hi-from: var(--color-sky-50);
+  --cell-hi-to: var(--color-sky-100);
+}
+
+[data-palette='blue'] {
+  --c300: var(--color-blue-300);
+  --c400: var(--color-blue-400);
+  --cell-border: var(--color-blue-400);
+  --cell-from: color-mix(in oklch, var(--c300) 80%, transparent);
+  --cell-to: color-mix(in oklch, var(--c400) 80%, transparent);
+  --cell-hi-from: var(--color-blue-50);
+  --cell-hi-to: var(--color-blue-100);
+}
+
+[data-palette='indigo'] {
+  --c300: var(--color-indigo-300);
+  --c400: var(--color-indigo-400);
+  --cell-border: var(--color-indigo-400);
+  --cell-from: color-mix(in oklch, var(--c300) 80%, transparent);
+  --cell-to: color-mix(in oklch, var(--c400) 80%, transparent);
+  --cell-hi-from: var(--color-indigo-50);
+  --cell-hi-to: var(--color-indigo-100);
+}
+
+[data-palette='violet'] {
+  --c300: var(--color-violet-300);
+  --c400: var(--color-violet-400);
+  --cell-border: var(--color-violet-400);
+  --cell-from: color-mix(in oklch, var(--c300) 80%, transparent);
+  --cell-to: color-mix(in oklch, var(--c400) 80%, transparent);
+  --cell-hi-from: var(--color-violet-50);
+  --cell-hi-to: var(--color-violet-100);
+}
+
+[data-palette='purple'] {
+  --c300: var(--color-purple-300);
+  --c400: var(--color-purple-400);
+  --cell-border: var(--color-purple-400);
+  --cell-from: color-mix(in oklch, var(--c300) 80%, transparent);
+  --cell-to: color-mix(in oklch, var(--c400) 80%, transparent);
+  --cell-hi-from: var(--color-purple-50);
+  --cell-hi-to: var(--color-purple-100);
+}
+
+[data-palette='fuchsia'] {
+  --c300: var(--color-fuchsia-300);
+  --c400: var(--color-fuchsia-400);
+  --cell-border: var(--color-fuchsia-400);
+  --cell-from: color-mix(in oklch, var(--c300) 80%, transparent);
+  --cell-to: color-mix(in oklch, var(--c400) 80%, transparent);
+  --cell-hi-from: var(--color-fuchsia-50);
+  --cell-hi-to: var(--color-fuchsia-100);
+}
+
+[data-palette='pink'] {
+  --c300: var(--color-pink-300);
+  --c400: var(--color-pink-400);
+  --cell-border: var(--color-pink-400);
+  --cell-from: color-mix(in oklch, var(--c300) 80%, transparent);
+  --cell-to: color-mix(in oklch, var(--c400) 80%, transparent);
+  --cell-hi-from: var(--color-pink-50);
+  --cell-hi-to: var(--color-pink-100);
+}
+
+[data-palette='rose'] {
+  --c300: var(--color-rose-300);
+  --c400: var(--color-rose-400);
+  --cell-border: var(--color-rose-400);
+  --cell-from: color-mix(in oklch, var(--c300) 80%, transparent);
+  --cell-to: color-mix(in oklch, var(--c400) 80%, transparent);
+  --cell-hi-from: var(--color-rose-50);
+  --cell-hi-to: var(--color-rose-100);
+}
+
+[data-palette='slate'] {
+  --c300: var(--color-slate-300);
+  --c400: var(--color-slate-400);
+  --cell-border: var(--color-slate-400);
+  --cell-from: color-mix(in oklch, var(--c300) 80%, transparent);
+  --cell-to: color-mix(in oklch, var(--c400) 80%, transparent);
+  --cell-hi-from: var(--color-slate-50);
+  --cell-hi-to: var(--color-slate-100);
+}
+
+[data-palette='gray'] {
+  --c300: var(--color-gray-300);
+  --c400: var(--color-gray-400);
+  --cell-border: var(--color-gray-400);
+  --cell-from: color-mix(in oklch, var(--c300) 80%, transparent);
+  --cell-to: color-mix(in oklch, var(--c400) 80%, transparent);
+  --cell-hi-from: var(--color-gray-50);
+  --cell-hi-to: var(--color-gray-100);
+}
+
+[data-palette='zinc'] {
+  --c300: var(--color-zinc-300);
+  --c400: var(--color-zinc-400);
+  --cell-border: var(--color-zinc-400);
+  --cell-from: color-mix(in oklch, var(--c300) 80%, transparent);
+  --cell-to: color-mix(in oklch, var(--c400) 80%, transparent);
+  --cell-hi-from: var(--color-zinc-50);
+  --cell-hi-to: var(--color-zinc-100);
+}
+
+[data-palette='neutral'] {
+  --c300: var(--color-neutral-300);
+  --c400: var(--color-neutral-400);
+  --cell-border: var(--color-neutral-400);
+  --cell-from: color-mix(in oklch, var(--c300) 80%, transparent);
+  --cell-to: color-mix(in oklch, var(--c400) 80%, transparent);
+  --cell-hi-from: var(--color-neutral-50);
+  --cell-hi-to: var(--color-neutral-100);
+}
+
+[data-palette='stone'] {
+  --c300: var(--color-stone-300);
+  --c400: var(--color-stone-400);
+  --cell-border: var(--color-stone-400);
+  --cell-from: color-mix(in oklch, var(--c300) 80%, transparent);
+  --cell-to: color-mix(in oklch, var(--c400) 80%, transparent);
+  --cell-hi-from: var(--color-stone-50);
+  --cell-hi-to: var(--color-stone-100);
+}
+
+[data-num='0'] {
+  color: transparent;
+}
+
+[data-num='1'] {
+  color: var(--color-blue-500);
+}
+
+[data-num='2'] {
+  color: var(--color-green-500);
+}
+
+[data-num='3'] {
+  color: var(--color-red-500);
+}
+
+[data-num='4'] {
+  color: var(--color-indigo-500);
+}
+
+[data-num='5'] {
+  color: var(--color-orange-500);
+}
+
+[data-num='6'] {
+  color: var(--color-purple-500);
+}
+
+[data-num='7'] {
+  color: var(--color-teal-500);
+}
+
+[data-num='8'] {
+  color: var(--color-pink-500);
+}
