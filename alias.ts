@@ -1,12 +1,12 @@
 import { readdirSync, existsSync } from 'node:fs'
-import { fileURLToPath } from 'node:url'
 import { resolve } from 'node:path'
+import { fileURLToPath } from 'node:url'
 import type { Alias } from 'vite'
 
-const __dirname = fileURLToPath(new URL('.', import.meta.url))
+const root = fileURLToPath(new URL('.', import.meta.url))
 
-function r(p = '', base = __dirname) {
-  return resolve(base, p).replace(/\\/g, '/')
+export function r(path: string, base = root) {
+  return resolve(base, path).replace(/\\/g, '/')
 }
 
 function createSubDirAliases(dir: string, prefix = '@') {
@@ -27,10 +27,11 @@ function createSubDirAliases(dir: string, prefix = '@') {
   return []
 }
 
-export const ROOT_PATH = r()
+export const ROOT_PATH = r('')
 export const DEMO_PATH = r('demo')
+export const SRC_PATH = r('src')
 
-export const viteAlias: readonly Alias[] = [
+export const viteAliases: readonly Alias[] = [
   ...createSubDirAliases(DEMO_PATH),
-  { find: /^#\//, replacement: `${ROOT_PATH}/` },
+  { find: /^@\//, replacement: `${SRC_PATH}/` },
 ]
