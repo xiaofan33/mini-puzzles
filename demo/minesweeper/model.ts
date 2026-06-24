@@ -111,7 +111,7 @@ export class MinesweeperModel {
 
   operate(index: number, op: Operation) {
     if (this.isGameOver()) {
-      return
+      return false
     }
 
     const cell = this.cells[index]
@@ -134,6 +134,7 @@ export class MinesweeperModel {
         this.toggleFlag(cell)
         break
     }
+    return true
   }
 
   isGameOver() {
@@ -205,7 +206,7 @@ export class MinesweeperModel {
   }
 
   private validateBoardConfig({ w, h, m }: BoardConfig) {
-    if (w <= 0 || h <= 0 || m < 0 || m >= w * h) {
+    if (w <= 0 || h <= 0 || m < 0 || m >= w * h - 1) {
       throw new RangeError(`invalid board config: ${w}x${h} with ${m} mines`)
     }
   }
@@ -272,13 +273,13 @@ export class MinesweeperModel {
 
     cell.type = 'revealed'
     this.remainingToRevealCount--
-    if (this.remainingToRevealCount === 0) {
-      this.gameEnd(true)
-      return
-    }
-
+    
     if (this.getAdjacentMineCount(cell.index) === 0) {
       this.floodReveal(cell)
+    }
+
+    if (this.remainingToRevealCount === 0) {
+      this.gameEnd(true)
     }
   }
 

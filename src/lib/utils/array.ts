@@ -4,15 +4,15 @@
 export function create2DArray<T>(
   rows: number,
   cols: number,
-  fillValue: T | ((rowIndex: number, colIndex: number) => T),
+  fillValue: T | ((pos: { x: number; y: number }) => T),
 ) {
   const fill =
     typeof fillValue === 'function'
-      ? (fillValue as (r: number, c: number) => T)
+      ? (fillValue as (pos: { x: number; y: number }) => T)
       : () => fillValue
 
-  return Array.from({ length: rows }, (_, r) =>
-    Array.from({ length: cols }, (_, c) => fill(r, c)),
+  return Array.from({ length: rows }, (_, y) =>
+    Array.from({ length: cols }, (_, x) => fill({ x, y })),
   )
 }
 

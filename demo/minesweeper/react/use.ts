@@ -4,7 +4,7 @@ import { createModel, type Operation, type GameProps } from '../model'
 
 // https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent/button#value
 const BTN_L = 0
-const BTN_R = 1
+const BTN_R = 2
 
 export function useGameBoard(
   boardRef: React.RefObject<HTMLDivElement | null>,
@@ -26,12 +26,13 @@ export function useGameBoard(
       const board = boardRef.current
       if (!board) return
 
-      const { left, top, width, height } = board.getBoundingClientRect()
+      const { left, top } = board.getBoundingClientRect()
+      const { scrollWidth, scrollHeight } = board
       const x = e.clientX - left + board.scrollLeft
       const y = e.clientY - top + board.scrollTop
       return {
-        pos: { y, x },
-        inBoard: x >= 0 && x < width && y >= 0 && y < height,
+        pos: { x, y },
+        inBoard: x >= 0 && x < scrollWidth && y >= 0 && y < scrollHeight,
       }
     },
     [boardRef],
@@ -47,6 +48,10 @@ export function useGameBoard(
 
       const initial = track(e)!
       setPointerPosition(initial.pos)
+      const showHighlight =
+        gestureRef.current.chordPending ||
+        gestureRef.current.pressedButtons.has(BTN_L)
+      setEnableHighlight(showHighlight)
 
       let rafId = 0
       let pending: Position | null = null
@@ -70,9 +75,6 @@ export function useGameBoard(
         if (inBoard) {
           pending = pos
           if (!rafId) rafId = requestAnimationFrame(flush)
-          const showHighlight =
-            gestureRef.current.chordPending ||
-            gestureRef.current.pressedButtons.has(BTN_L)
           setEnableHighlight(showHighlight)
         } else {
           rafCleanup()
@@ -113,13 +115,19 @@ export function useGameBoard(
     [boardRef],
   )
 
+  const preventContextMenu = (e: MouseEvent) => e.preventDefault()
+
   useEffect(() => {
     const board = boardRef.current
     if (!board) return
 
+    board.addEventListener('contextmenu', preventContextMenu)
     board.addEventListener('pointerdown', onPointerDown)
-    return () => board.removeEventListener('pointerdown', onPointerDown)
-  }, [boardRef])
+    return () => {
+      board.removeEventListener('contextmenu', preventContextMenu)
+      board.removeEventListener('pointerdown', onPointerDown)
+    }
+  }, [boardRef, onPointerDown])
 
   return {
     pointerPosition,
@@ -130,7 +138,7 @@ export function useGameBoard(
 export function useGameModel() {
   const [m] = useState(() => createModel())
 
-  const [, setVersion] = useState(0)
+  const [version, setVersion] = useState(0)
   const rerender = useCallback(() => setVersion(v => v + 1), [])
 
   const board = m.boardConfig
@@ -138,41 +146,28 @@ export function useGameModel() {
   const flagCount = m.flagIndices.size
   const gridCells = useMemo(
     () =>
-      create2DArray(
-        board.w,
-        board.h,
-        (y, x) => m.cells[m.grid.posToIndex({ y, x })],
-      ),
-    [board.w, board.h],
+      create2DArray(board.h, board.w, pos => m.cells[m.grid.posToIndex(pos)]),
+    [board.w, board.h, version],
   )
-
-  const toSeconds = () => Math.floor(m.getElapsedTime() / 1000)
-  const [seconds, setSeconds] = useState(toSeconds())
-
-  useEffect(() => {
-    if (state !== 'playing') return
-    const intervalId = setInterval(() => setSeconds(toSeconds), 1000)
-    return () => clearInterval(intervalId)
-  }, [state])
 
   const actions = useMemo(
     () => ({
       restore: (p: GameProps) => {
         m.restore(p)
-        setSeconds(toSeconds)
         rerender()
       },
       restart: () => {
         m.restart()
-        setSeconds(toSeconds)
         rerender()
       },
       operate: (i: number, op: Operation) => {
-        m.operate(i, op)
-        rerender()
+        const success = m.operate(i, op)
+        if (success) rerender()
+        return success
       },
       dump: () => m.dump(),
       isGameOver: () => m.isGameOver(),
+      getElapsedTime: () => m.getElapsedTime(),
       getAdjacentCells: (i: number) => m.getAdjacentCells(i),
     }),
     [],
@@ -183,7 +178,6 @@ export function useGameModel() {
     state,
     flagCount,
     gridCells,
-    seconds,
     ...actions,
   }
 }

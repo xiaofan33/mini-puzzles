@@ -1,30 +1,27 @@
 {
-  "defaultDifficulty": "easy",
+  "defaultBoard": {
+    "w": 9,
+    "h": 9,
+    "m": 10
+  },
   "difficulties": [
     {
-      "key": "easy",
-      "txt": "简单",
+      "value": "easy",
+      "label": "初级",
       "w": 9,
       "h": 9,
       "m": 10
     },
     {
-      "key": "medium",
-      "txt": "中等",
+      "value": "medium",
+      "label": "中级",
       "w": 16,
       "h": 16,
       "m": 40
     },
     {
-      "key": "hard",
-      "txt": "困难",
-      "w": 30,
-      "h": 16,
-      "m": 99
-    },
-    {
-      "key": "custom",
-      "txt": "自定义",
+      "value": "hard",
+      "label": "高级",
       "w": 30,
       "h": 16,
       "m": 99
@@ -32,9 +29,9 @@
   ],
 
   "userSettings": {
-    "palette": "sky",
+    "palette": "violet",
 
-    "size": 34,
+    "size": 32,
     "radius": 2,
     "gap": 2,
 

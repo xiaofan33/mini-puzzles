@@ -1,6 +1,6 @@
 import confetti, { type Options } from 'canvas-confetti'
 
-export function celebrateWin(delay = 300) {
+export function celebrateWin(delay = 250) {
   const defaults = {
     particleCount: 50,
     origin: { y: 0.7 },

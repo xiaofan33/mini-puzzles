@@ -256,3 +256,27 @@
 [data-num='8'] {
   color: var(--color-pink-500);
 }
+
+.animate-boom-shake {
+  animation: boom-shake 0.25s ease-in-out;
+}
+
+@keyframes boom-shake {
+
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+
+  25% {
+    transform: translate(-2px, -2px);
+  }
+
+  50% {
+    transform: translate(2px, 2px);
+  }
+
+  75% {
+    transform: translate(-2px, 2px);
+  }
+}
