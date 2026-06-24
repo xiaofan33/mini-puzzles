@@ -43,18 +43,15 @@ export function formatTime(seconds: number) {
 }
 
 export function cellAt(
-  point: { x: number; y: number },
-  cellSize: number,
+  pointer: { x: number; y: number },
+  size: number,
   gap: number,
 ) {
-  const stride = cellSize + gap
-  const col = Math.floor(point.x / stride)
-  const row = Math.floor(point.y / stride)
+  const stride = size + gap
+  const col = Math.floor(pointer.x / stride)
+  const row = Math.floor(pointer.y / stride)
 
-  if (
-    point.x - col * stride >= cellSize ||
-    point.y - row * stride >= cellSize
-  ) {
+  if (pointer.x - col * stride >= size || pointer.y - row * stride >= size) {
     return
   }
 

@@ -110,7 +110,7 @@ export class MinesweeperModel {
   }
 
   operate(index: number, op: Operation) {
-    if (this.state === 'won' || this.state === 'lost') {
+    if (this.isGameOver()) {
       return
     }
 
