@@ -27,9 +27,9 @@ export function useGameBoard(
       if (!board) return
 
       const { left, top } = board.getBoundingClientRect()
-      const { scrollWidth, scrollHeight } = board
-      const x = e.clientX - left + board.scrollLeft
-      const y = e.clientY - top + board.scrollTop
+      const { scrollWidth, scrollHeight, scrollLeft, scrollTop } = board
+      const x = e.clientX - left + scrollLeft
+      const y = e.clientY - top + scrollTop
       return {
         pos: { x, y },
         inBoard: x >= 0 && x < scrollWidth && y >= 0 && y < scrollHeight,

@@ -273,7 +273,7 @@ export class MinesweeperModel {
 
     cell.type = 'revealed'
     this.remainingToRevealCount--
-    
+
     if (this.getAdjacentMineCount(cell.index) === 0) {
       this.floodReveal(cell)
     }
