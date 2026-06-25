@@ -4,7 +4,6 @@ import { createModel, type Operation, type GameProps } from '../model'
 
 // https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent/button#value
 const BTN_L = 0
-const BTN_R = 2
 
 export function useGameBoard(
   boardRef: React.RefObject<HTMLDivElement | null>,
@@ -15,11 +14,6 @@ export function useGameBoard(
 
   const [pointerPosition, setPointerPosition] = useState<Position | null>(null)
   const [enableHighlight, setEnableHighlight] = useState(false)
-
-  const gestureRef = useRef({
-    pressedButtons: new Set<number>(),
-    chordPending: false,
-  })
 
   const track = useCallback(
     (e: MouseEvent) => {
@@ -40,17 +34,10 @@ export function useGameBoard(
 
   const onPointerDown = useCallback(
     (e: PointerEvent) => {
-      const { pressedButtons } = gestureRef.current
-      pressedButtons.add(e.button)
-
-      const isChord = pressedButtons.has(BTN_L) && pressedButtons.has(BTN_R)
-      if (isChord) gestureRef.current.chordPending = true
-
       const initial = track(e)!
       setPointerPosition(initial.pos)
-      const showHighlight =
-        gestureRef.current.chordPending ||
-        gestureRef.current.pressedButtons.has(BTN_L)
+
+      const showHighlight = e.button === BTN_L
       setEnableHighlight(showHighlight)
 
       let rafId = 0
@@ -84,21 +71,12 @@ export function useGameBoard(
 
       const onExit = (e: PointerEvent) => {
         const { pos, inBoard } = track(e)!
-        const g = gestureRef.current
-        g.pressedButtons.delete(e.button)
-
         if (inBoard) {
-          if (g.chordPending) {
-            g.chordPending = false
-            handlerRef.current('chord-reveal', pos)
-          } else if (e.button === 0) {
+          if (e.button === 0) {
             handlerRef.current('reveal', pos)
           } else if (e.button === 2) {
             handlerRef.current('toggle-flag', pos)
           }
-        }
-        if (g.pressedButtons.size === 0) {
-          g.chordPending = false
         }
 
         rafCleanup()

@@ -60,6 +60,7 @@ export function BoardCell(props: { cell: Cell; highlighted?: boolean }) {
 }
 
 export default function GameBoard(props: {
+  isReady?: boolean
   settings: Settings
   gridCells: Cell[][]
   onOperate: (i: number, op: Operation) => void
@@ -68,14 +69,14 @@ export default function GameBoard(props: {
   const boardRef = useRef<HTMLDivElement>(null)
 
   const columns = props.gridCells[0]?.length ?? 0
-  const { size, gap, radius } = props.settings
+  const { size, gap, radius, flagMode } = props.settings
 
   const cssVars = useMemo(
     () =>
       ({
         '--col': `${columns}`,
         '--gap': `${gap}px`,
-        '--cell-fontsize': `${size * 0.65}px`,
+        '--cell-fontsize': `${size * 0.61}px`,
         '--cell-radius': `${radius}px`,
         '--cell-size': `${size}px`,
       }) as React.CSSProperties,
@@ -91,12 +92,11 @@ export default function GameBoard(props: {
       const cell = props.gridCells[grid.y][grid.x]
       if (!cell) return
 
-      const { fastMode, flagMode } = props.settings
-      if (fastMode && op === 'reveal' && cell.type === 'revealed') {
+      if (op === 'reveal' && cell.type === 'revealed') {
         props.onOperate(cell.index, 'chord-reveal')
         return
       }
-      if (flagMode && op === 'reveal') {
+      if (op === 'reveal' && flagMode && !props.isReady) {
         props.onOperate(cell.index, 'toggle-flag')
         return
       }
@@ -120,7 +120,9 @@ export default function GameBoard(props: {
     if (!enableHighlight) return
 
     const cell = hoveredCellRef.current
-    if (!cell || cell.type === 'flagged') return
+    if (!cell) return
+
+    if (cell.type === 'flagged' || (flagMode && cell.type === 'covered')) return
 
     if (cell.type === 'covered') {
       return [cell.index]
@@ -130,7 +132,7 @@ export default function GameBoard(props: {
       .getAdjacentCells(cell.index)
       .filter(c => c.type === 'covered')
       .map(c => c.index)
-  }, [enableHighlight, props.getAdjacentCells, hoveredCell])
+  }, [enableHighlight, hoveredCell, flagMode])
 
   return (
     <div
