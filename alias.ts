@@ -27,11 +27,11 @@ function createSubDirAliases(dir: string, prefix = '@') {
   return []
 }
 
-export const ROOT_PATH = r('')
-export const DEMO_PATH = r('demo')
-export const SRC_PATH = r('src')
+export const ROOT_DIR = r('')
+export const DEMO_DIR = r('demo')
+export const SRC_DIR = r('src')
 
 export const viteAliases: readonly Alias[] = [
-  ...createSubDirAliases(DEMO_PATH),
-  { find: /^@\//, replacement: `${SRC_PATH}/` },
+  ...createSubDirAliases(DEMO_DIR),
+  { find: /^@\//, replacement: `${SRC_DIR}/` },
 ]
