@@ -24,7 +24,7 @@ export interface BoardConfig {
 
 export interface GameProps extends BoardConfig {
   elapsedTime?: number /** milliseconds */
-  cellBitmask?: readonly [number /**cell index */, number /**bitmask */][]
+  cellBitmask?: readonly number[]
 }
 
 const CELL_FLAGS = {
@@ -142,13 +142,17 @@ export class MinesweeperModel {
   }
 
   getBitmask() {
-    return this.cells.flatMap(c => {
+    const result: number[] = []
+    for (const c of this.cells) {
       const bitmask =
         (c.mine ? CELL_FLAGS.mine : 0) |
         (c.type === 'revealed' ? CELL_FLAGS.reveal : 0) |
         (c.type === 'flagged' ? CELL_FLAGS.flag : 0)
-      return bitmask > 0 ? [[c.index, bitmask] as [number, number]] : []
-    })
+      if (bitmask > 0) {
+        result.push(c.index, bitmask)
+      }
+    }
+    return result
   }
 
   getElapsedTime() {
@@ -211,9 +215,11 @@ export class MinesweeperModel {
     }
   }
 
-  private applyBitmask(cellBitmask: readonly [number, number][]) {
+  private applyBitmask(cellBitmask: readonly number[]) {
     const revealed: Cell[] = []
-    cellBitmask.forEach(([index, bitmask]) => {
+    for (let i = 0; i < cellBitmask.length; i += 2) {
+      const index = cellBitmask[i]
+      const bitmask = cellBitmask[i + 1]
       const cell = this.cells[index]
       if (bitmask & CELL_FLAGS.reveal) {
         cell.type = 'revealed'
@@ -228,7 +234,7 @@ export class MinesweeperModel {
         cell.mine = true
         this.mineIndices.push(index)
       }
-    })
+    }
 
     revealed.forEach(c => this.ensureAdjacentMineCount(c))
   }

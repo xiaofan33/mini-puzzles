@@ -23,6 +23,12 @@
     }
   ],
 
+  "boardBounds": {
+    "w": { "min": 5, "max": 50 },
+    "h": { "min": 5, "max": 50 },
+    "density": { "min": 0.05, "max": 0.55 }
+  },
+
   "userSettings": {
     "board": {
       "w": 9,
@@ -32,12 +38,10 @@
     "palette": "violet",
     "size": 33,
     "radius": 2,
-    "gap": 1,
-
+    "gap": 2,
     "flagMode": false
   },
 
-  "lastGameStoreKey": "g-minesweeper-last-game",
   "settingsStoreKey": "g-minesweeper-settings",
 
   "emojis": {

@@ -1,4 +1,4 @@
-import React, { useMemo, useRef } from 'react'
+import { useMemo, useRef } from 'react'
 import { cn, type Position } from '@/lib/utils'
 import { cellAt, themeLoader, type Settings } from '../utils'
 import { useGameBoard } from './use'
@@ -79,7 +79,7 @@ export default function GameBoard(props: {
         '--cell-fontsize': `${size * 0.61}px`,
         '--cell-radius': `${radius}px`,
         '--cell-size': `${size}px`,
-      }) as React.CSSProperties,
+      }) as Record<string, string>,
     [columns, gap, radius, size],
   )
 
