@@ -1,4 +1,4 @@
-import { readdirSync, existsSync } from 'node:fs'
+import { existsSync, readdirSync } from 'node:fs'
 import { resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import type { Alias } from 'vite'
@@ -28,10 +28,10 @@ function createSubDirAliases(dir: string, prefix = '@') {
 }
 
 export const ROOT_DIR = r('')
-export const DEMO_DIR = r('demo')
+export const PUZZLE_DIR = r('puzzles')
 export const SRC_DIR = r('src')
 
 export const viteAliases: readonly Alias[] = [
-  ...createSubDirAliases(DEMO_DIR),
+  ...createSubDirAliases(PUZZLE_DIR),
   { find: /^@\//, replacement: `${SRC_DIR}/` },
 ]

@@ -1,9 +1,5 @@
-import Home from '@/pages/Home'
+import GamePage from '@/pages/GamePage'
 
 export default function App() {
-  return (
-    <>
-      <Home />
-    </>
-  )
+  return <GamePage />
 }

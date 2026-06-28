@@ -26,23 +26,10 @@
   "boardBounds": {
     "w": { "min": 5, "max": 50 },
     "h": { "min": 5, "max": 50 },
-    "density": { "min": 0.05, "max": 0.55 }
+    "minePercent": { "min": 5, "max": 50 }
   },
 
-  "userSettings": {
-    "board": {
-      "w": 9,
-      "h": 9,
-      "m": 10
-    },
-    "palette": "violet",
-    "size": 33,
-    "radius": 2,
-    "gap": 2,
-    "flagMode": false
-  },
-
-  "settingsStoreKey": "g-minesweeper-settings",
+  "userOptionsKey": "g-minesweeper-options",
 
   "emojis": {
     "ready": "🙂",

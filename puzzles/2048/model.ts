@@ -53,7 +53,7 @@ const haveSameLayout = (a: TileState[], b: TileState[]) => {
   )
 }
 
-export class Game2048Model {
+export class Game2048 {
   props: Readonly<GameProps> = { ...defaultProps }
   state: GameState = { score: 0, steps: 0, tiles: [] }
 
@@ -269,7 +269,7 @@ export class Game2048Model {
 }
 
 export function createModel(props: GameProps = defaultProps) {
-  const m = new Game2048Model()
+  const m = new Game2048()
   m.init(props)
   return m
 }

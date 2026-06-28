@@ -3,7 +3,7 @@
     "target": "es2023",
     "lib": ["ES2023", "DOM", "DOM.Iterable"],
     "module": "esnext",
-    "types": ["vite/client", "node"],
+    "types": ["vite/client"],
     "skipLibCheck": true,
 
     "moduleResolution": "bundler",
@@ -21,8 +21,8 @@
     "noFallthroughCasesInSwitch": true,
 
     "paths": {
-      "@/*": ["./src/*", "./demo/*"]
+      "@/*": ["./src/*", "./puzzles/*"]
     }
   },
-  "include": ["src", "demo"]
+  "include": ["src", "puzzles", "*.ts"]
 }

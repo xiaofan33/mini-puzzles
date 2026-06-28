@@ -1,18 +1,18 @@
-import { arrayShuffle, RectGrid } from '@/lib/utils'
+import { arrayShuffle, create2DArray, RectGrid } from '@/lib/utils'
 
-export type Operation = 'reveal' | 'chord-reveal' | 'toggle-flag'
-export type GameState = 'ready' | 'playing' | 'won' | 'lost'
-export type CellState =
+export type GameStatus = 'ready' | 'playing' | 'won' | 'lost'
+export type CellStatus =
   | 'covered'
-  | 'revealed'
   | 'flagged'
+  | 'revealed'
   | 'exploded'
   | 'misflagged'
+export type Operation = 'reveal' | 'chord-reveal' | 'toggle-flag'
 
 export interface Cell {
   readonly index: number
   mine: boolean
-  type: CellState
+  status: CellStatus
   adjacentMineCount?: number
 }
 
@@ -33,94 +33,90 @@ const CELL_FLAGS = {
   mine: 1 << 2, // 0b100
 } as const
 
-export class MinesweeperModel {
-  state: GameState = 'ready'
-  timer: { elapsedTime: number; startAt?: number } = { elapsedTime: 0 }
+export class Minesweeper {
+  status: GameStatus = 'ready'
   cells: Cell[] = []
+  mineCount = 0
   flagIndices: Set<number> = new Set()
-  mineIndices: number[] = []
-  grid = new RectGrid()
 
-  private board: BoardConfig = { w: 1, h: 1, m: 0 }
+  private timer: { startAt?: number; elapsed: number } = { elapsed: 0 }
+  private mineIndices: number[] = []
+  private rectGrid: RectGrid
   private adjacentCellsCache: WeakMap<Cell, Cell[]> = new WeakMap()
   private remainingToRevealCount = 0
 
-  get boardConfig(): Readonly<BoardConfig> {
-    return this.board
+  constructor(rectGrid: RectGrid = new RectGrid({ x: 0, y: 0 })) {
+    this.rectGrid = rectGrid
+  }
+
+  get boardConfig() {
+    return { w: this.rectGrid.w, h: this.rectGrid.h, m: this.mineCount }
   }
 
   restore(props: GameProps) {
-    const { elapsedTime = 0, cellBitmask, ...board } = props
-    this.validateBoardConfig(board)
+    const { elapsedTime, cellBitmask, w, h, m } = props
 
-    const totalCells = board.w * board.h
-    const needsReset =
-      board.w !== this.board.w ||
-      board.h !== this.board.h ||
-      this.cells.length !== totalCells
-
-    if (needsReset) {
+    const needsInit =
+      this.rectGrid.w !== w || this.rectGrid.h !== h || this.cells.length === 0
+    if (needsInit) {
+      this.rectGrid.setBounds({ w, h })
       this.adjacentCellsCache = new WeakMap()
-      this.cells = Array.from({ length: totalCells }, (_, index) => ({
+      this.cells = Array.from({ length: this.rectGrid.total }, (_, index) => ({
         index,
         mine: false,
-        type: 'covered',
+        status: 'covered',
       }))
     } else {
       this.cells.forEach(c => {
         c.mine = false
-        c.type = 'covered'
+        c.status = 'covered'
         c.adjacentMineCount = undefined
       })
     }
 
-    const rect = { w: board.w, h: board.h }
-    this.grid.apply(rect)
-    this.board = { ...rect, m: board.m }
-    this.state = 'ready'
-    this.timer = { elapsedTime }
+    this.mineCount = m
+    this.timer = { elapsed: elapsedTime || 0 }
     this.flagIndices.clear()
     this.mineIndices = []
-    this.remainingToRevealCount = totalCells - board.m
+    this.remainingToRevealCount = this.cells.length - this.mineCount
+    this.status = 'ready'
 
     if (cellBitmask?.length) {
       this.applyBitmask(cellBitmask)
       this.timer.startAt = Date.now()
-      this.state = 'playing'
+      this.status = 'playing'
     }
   }
 
-  /**
-   * keep the original mine positions and restart the game
-   */
+  // Restart the game but keep the original mine positions
   restart() {
-    this.cells.forEach(c => (c.type = 'covered'))
+    this.cells.forEach(c => (c.status = 'covered'))
     this.flagIndices.clear()
-    this.timer = { elapsedTime: 0 }
-    this.remainingToRevealCount = this.cells.length - this.board.m
-    this.state = 'ready'
+    this.timer = { elapsed: 0 }
+    this.remainingToRevealCount = this.cells.length - this.mineCount
+    this.status = 'ready'
   }
 
-  dump() {
+  dump(): GameProps {
     return {
-      ...this.board,
+      w: this.rectGrid.w,
+      h: this.rectGrid.h,
+      m: this.mineCount,
       elapsedTime: this.getElapsedTime(),
       cellBitmask: this.getBitmask(),
     }
   }
 
   operate(index: number, op: Operation) {
-    if (this.isGameOver()) {
-      return false
-    }
+    if (this.status === 'won' || this.status === 'lost') return
 
     const cell = this.cells[index]
-    if (this.state === 'ready') {
+    if (this.status === 'ready') {
       if (this.mineIndices.length === 0) {
         this.placeMines(cell)
       }
       this.timer.startAt = Date.now()
-      this.state = 'playing'
+      this.status = 'playing'
     }
 
     switch (op) {
@@ -134,84 +130,64 @@ export class MinesweeperModel {
         this.toggleFlag(cell)
         break
     }
-    return true
   }
 
-  isGameOver() {
-    return this.state === 'won' || this.state === 'lost'
-  }
-
-  getBitmask() {
-    const result: number[] = []
-    for (const c of this.cells) {
-      const bitmask =
-        (c.mine ? CELL_FLAGS.mine : 0) |
-        (c.type === 'revealed' ? CELL_FLAGS.reveal : 0) |
-        (c.type === 'flagged' ? CELL_FLAGS.flag : 0)
-      if (bitmask > 0) {
-        result.push(c.index, bitmask)
-      }
-    }
-    return result
+  createGridCells() {
+    return create2DArray(
+      this.rectGrid.h,
+      this.rectGrid.w,
+      p => this.cells[this.rectGrid.posToIndex(p)],
+    )
   }
 
   getElapsedTime() {
-    let { elapsedTime, startAt } = this.timer
+    let { elapsed, startAt } = this.timer
     if (startAt) {
-      elapsedTime += Date.now() - startAt
+      elapsed += Date.now() - startAt
     }
-    return elapsedTime
+    return elapsed
   }
 
   getAdjacentCells(index: number) {
     const cell = this.cells[index]
     const cache = this.adjacentCellsCache.get(cell)
-    if (cache) {
-      return cache
-    }
+    if (cache) return cache
 
-    const adjacentCells = this.grid
-      .getAdjacentIndices(index)
+    const adjacent = this.rectGrid
+      .getNeighbors(index, true)
       .map(i => this.cells[i])
-
-    this.adjacentCellsCache.set(cell, adjacentCells)
-    return adjacentCells
+    this.adjacentCellsCache.set(cell, adjacent)
+    return adjacent
   }
 
   revealAll() {
-    if (this.state === 'won') {
+    if (this.status === 'won') {
       this.cells.forEach(c => {
         if (c.mine) {
-          c.type = 'flagged'
+          c.status = 'flagged'
           this.flagIndices.add(c.index)
         } else {
-          c.type = 'revealed'
+          c.status = 'revealed'
           this.ensureAdjacentMineCount(c)
         }
       })
       return
     }
 
-    if (this.state === 'lost') {
+    if (this.status === 'lost') {
       this.mineIndices.forEach(index => {
         const c = this.cells[index]
-        if (c.type === 'covered') {
-          c.type = 'revealed'
+        if (c.status === 'covered') {
+          c.status = 'revealed'
         }
       })
       this.flagIndices.forEach(index => {
         const c = this.cells[index]
         if (!c.mine) {
-          c.type = 'misflagged'
+          c.status = 'misflagged'
         }
       })
       return
-    }
-  }
-
-  private validateBoardConfig({ w, h, m }: BoardConfig) {
-    if (w <= 0 || h <= 0 || m < 0 || m >= w * h - 1) {
-      throw new RangeError(`invalid board config: ${w}x${h} with ${m} mines`)
     }
   }
 
@@ -222,12 +198,12 @@ export class MinesweeperModel {
       const bitmask = cellBitmask[i + 1]
       const cell = this.cells[index]
       if (bitmask & CELL_FLAGS.reveal) {
-        cell.type = 'revealed'
+        cell.status = 'revealed'
         this.remainingToRevealCount--
         revealed.push(cell)
       }
       if (bitmask & CELL_FLAGS.flag) {
-        cell.type = 'flagged'
+        cell.status = 'flagged'
         this.flagIndices.add(index)
       }
       if (bitmask & CELL_FLAGS.mine) {
@@ -237,6 +213,20 @@ export class MinesweeperModel {
     }
 
     revealed.forEach(c => this.ensureAdjacentMineCount(c))
+  }
+
+  private getBitmask() {
+    const result: number[] = []
+    for (const c of this.cells) {
+      const bitmask =
+        (c.mine ? CELL_FLAGS.mine : 0) |
+        (c.status === 'revealed' ? CELL_FLAGS.reveal : 0) |
+        (c.status === 'flagged' ? CELL_FLAGS.flag : 0)
+      if (bitmask > 0) {
+        result.push(c.index, bitmask)
+      }
+    }
+    return result
   }
 
   private ensureAdjacentMineCount(cell: Cell) {
@@ -260,24 +250,24 @@ export class MinesweeperModel {
       ...this.getAdjacentCells(safeCell.index),
     ])
     const available = this.cells.filter(c => !excluded.has(c))
-    arrayShuffle(available, this.board.m).forEach(c => {
+    arrayShuffle(available, this.mineCount).forEach(c => {
       c.mine = true
       this.mineIndices.push(c.index)
     })
   }
 
   private reveal(cell: Cell) {
-    if (cell.type !== 'covered') {
+    if (cell.status !== 'covered') {
       return
     }
 
     if (cell.mine) {
-      cell.type = 'exploded'
+      cell.status = 'exploded'
       this.gameEnd(false)
       return
     }
 
-    cell.type = 'revealed'
+    cell.status = 'revealed'
     this.remainingToRevealCount--
 
     if (this.getAdjacentMineCount(cell.index) === 0) {
@@ -290,31 +280,25 @@ export class MinesweeperModel {
   }
 
   private revealChord(cell: Cell) {
-    if (cell.type !== 'revealed') {
-      return
-    }
+    if (cell.status !== 'revealed') return
 
     const adjacentCells = this.getAdjacentCells(cell.index)
-    const adjacentFlagCount = adjacentCells.reduce(
-      (acc, c) => acc + (c.type === 'flagged' ? 1 : 0),
+    const flagCount = adjacentCells.reduce(
+      (acc, c) => acc + (c.status === 'flagged' ? 1 : 0),
       0,
     )
-    if (
-      adjacentFlagCount === 0 ||
-      adjacentFlagCount !== this.getAdjacentMineCount(cell.index)
-    ) {
+    if (flagCount === 0 || flagCount !== this.getAdjacentMineCount(cell.index))
       return
-    }
 
     adjacentCells.forEach(c => this.reveal(c))
   }
 
   private toggleFlag(cell: Cell) {
-    if (cell.type === 'covered') {
-      cell.type = 'flagged'
+    if (cell.status === 'covered') {
+      cell.status = 'flagged'
       this.flagIndices.add(cell.index)
-    } else if (cell.type === 'flagged') {
-      cell.type = 'covered'
+    } else if (cell.status === 'flagged') {
+      cell.status = 'covered'
       this.flagIndices.delete(cell.index)
     }
   }
@@ -324,8 +308,8 @@ export class MinesweeperModel {
     while (stack.length > 0) {
       const index = stack.pop()!
       this.getAdjacentCells(index).forEach(adjacent => {
-        if (adjacent.type === 'covered' && !adjacent.mine) {
-          adjacent.type = 'revealed'
+        if (adjacent.status === 'covered' && !adjacent.mine) {
+          adjacent.status = 'revealed'
           this.remainingToRevealCount--
           if (this.getAdjacentMineCount(adjacent.index) === 0) {
             stack.push(adjacent.index)
@@ -336,14 +320,14 @@ export class MinesweeperModel {
   }
 
   private gameEnd(won: boolean) {
-    this.state = won ? 'won' : 'lost'
-    this.timer = { elapsedTime: this.getElapsedTime() }
+    this.status = won ? 'won' : 'lost'
+    this.timer = { elapsed: this.getElapsedTime() }
     this.revealAll()
   }
 }
 
 export function createModel(props: GameProps = { w: 9, h: 9, m: 10 }) {
-  const m = new MinesweeperModel()
+  const m = new Minesweeper()
   m.restore(props)
   return m
 }
