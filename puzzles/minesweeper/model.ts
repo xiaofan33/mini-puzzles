@@ -2,11 +2,7 @@ import { arrayShuffle, create2DArray, RectGrid } from '@/lib/utils'
 
 export type GameStatus = 'ready' | 'playing' | 'won' | 'lost'
 export type CellStatus =
-  | 'covered'
-  | 'flagged'
-  | 'revealed'
-  | 'exploded'
-  | 'misflagged'
+  'covered' | 'flagged' | 'revealed' | 'exploded' | 'misflagged'
 export type Operation = 'reveal' | 'chord-reveal' | 'toggle-flag'
 
 export interface Cell {

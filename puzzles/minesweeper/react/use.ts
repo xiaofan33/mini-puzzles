@@ -1,4 +1,11 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+  type RefObject,
+} from 'react'
 import { createModel, type GameProps, type Operation } from '../model'
 import type { Position } from '@/lib/utils'
 
@@ -6,7 +13,7 @@ import type { Position } from '@/lib/utils'
 const BTN_L = 0
 
 export function useGameBoard(
-  boardRef: React.RefObject<HTMLDivElement | null>,
+  boardRef: RefObject<HTMLDivElement | null>,
   handler: (op: Operation, pos: Position) => void,
 ) {
   const handlerRef = useRef(handler)
