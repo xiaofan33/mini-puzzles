@@ -1,6 +1,7 @@
 import { useRef, useState } from 'react'
 import { Shadcn } from '@/components/ui'
-import { buildShareUrl, formatDuration } from '../utils'
+import { formatDuration } from '@/lib/utils'
+import { buildShareUrl } from '../utils'
 import type { GameProps } from '../model'
 
 export interface ShareData extends GameProps {

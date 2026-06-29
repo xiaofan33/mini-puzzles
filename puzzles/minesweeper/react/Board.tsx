@@ -40,7 +40,7 @@ export function BoardCell(props: Cell & { highlighted?: boolean }) {
     if (status === 'revealed' || highlighted) {
       return HI_GRADIENT
     }
-    return `${GRADIENT} hover:from-(--c300) hover:to-(--c400)`
+    return `${GRADIENT} hover:from-(--accent-soft) hover:to-(--accent-deep)`
   }, [status, highlighted])
 
   return (

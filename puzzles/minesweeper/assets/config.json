@@ -26,7 +26,7 @@
   "boardBounds": {
     "w": { "min": 5, "max": 50 },
     "h": { "min": 5, "max": 50 },
-    "minePercent": { "min": 5, "max": 50 }
+    "minePercent": { "min": 4, "max": 60 }
   },
 
   "userOptionsKey": "g-minesweeper-options",

@@ -14,7 +14,7 @@ export function findDifficulty(input: BoardConfig | string) {
   return difficulties.find(d => d.w === w && d.h === h && d.m === m)
 }
 
-export function randomBoard() {
+export function randomBoardConfig(): BoardConfig {
   const w = randomInt(boardBounds.w.min, boardBounds.w.max)
   const h = randomInt(boardBounds.h.min, boardBounds.h.max)
   const percent = randomInt(
@@ -22,7 +22,12 @@ export function randomBoard() {
     boardBounds.minePercent.max,
   )
   const total = w * h
-  const m = Math.max(1, Math.min(total - 1, Math.ceil((total * percent) / 100)))
+  const lo = Math.max(1, Math.ceil((total * boardBounds.minePercent.min) / 100))
+  const hi = Math.min(
+    Math.floor((total * boardBounds.minePercent.max) / 100),
+    total - 9,
+  )
+  const m = Math.max(lo, Math.min(hi, Math.round((total * percent) / 100)))
 
   return { w, h, m }
 }
@@ -31,14 +36,6 @@ export function randomPalette(excluded?: string) {
   const available = palettes.filter(key => key !== excluded)
   const pickIndex = Math.floor(Math.random() * available.length)
   return available[pickIndex]
-}
-
-export function isTouchDevice() {
-  if (typeof window === 'undefined') {
-    return false
-  }
-  const mediaQuery = '(hover: none) and (pointer: coarse)'
-  return window.matchMedia(mediaQuery).matches
 }
 
 /**
@@ -55,28 +52,6 @@ export function formatTime(seconds: number) {
   const s = minutes === 99 ? Math.min(secondsInMinute, 59) : secondsInMinute
 
   return `${minutes.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`
-}
-
-/**
- * Format seconds into a compact minutes/seconds string like “59s” or “1m50s”.
- */
-export function formatDuration(seconds: number) {
-  const totalSeconds = Math.max(0, Math.floor(seconds))
-  const hours = Math.floor(totalSeconds / 3600)
-  const minutes = Math.floor((totalSeconds % 3600) / 60)
-  const secondsInMinute = totalSeconds % 60
-
-  if (hours > 0) {
-    return `${hours}h${minutes.toString().padStart(2, '0')}m${secondsInMinute
-      .toString()
-      .padStart(2, '0')}s`
-  }
-
-  if (minutes === 0) {
-    return `${secondsInMinute}s`
-  }
-
-  return `${minutes}m${secondsInMinute.toString().padStart(2, '0')}s`
 }
 
 /**
