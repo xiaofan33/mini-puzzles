@@ -128,7 +128,7 @@ export function useGameModel() {
     [boardConfig.w, boardConfig.h],
   )
 
-  const modelActions = useMemo(
+  const actions = useMemo(
     () => ({
       restore: (p: GameProps) => {
         m.restore(p)
@@ -154,6 +154,6 @@ export function useGameModel() {
     boardConfig,
     flagCount,
     gridCells,
-    modelActions,
+    ...actions,
   }
 }

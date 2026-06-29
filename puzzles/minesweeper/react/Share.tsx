@@ -11,7 +11,7 @@ const INFO_ITEMS = [
   {
     icon: 'i-lucide-grid-2x2',
     text: '宽高',
-    getValue: (d: ShareData) => `${d.w} x ${d.h}`,
+    getValue: (d: ShareData) => `${d.w}x${d.h}`,
   },
   {
     icon: 'i-lucide-bomb',
@@ -25,7 +25,7 @@ const INFO_ITEMS = [
   },
   {
     icon: 'i-lucide-timer',
-    text: '已用时',
+    text: '当前用时',
     getValue: (d: ShareData) =>
       d.elapsedTime ? formatDuration(Math.floor(d.elapsedTime / 1000)) : 'N/A',
   },

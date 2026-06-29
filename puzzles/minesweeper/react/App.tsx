@@ -74,7 +74,7 @@ export function FlagModeToggle(props: {
         onCheckedChange={props.onToggle}
       />
       <Shadcn.Label htmlFor="flag-mode" className="py-2">
-        点击标旗
+        插旗优先
       </Shadcn.Label>
     </Shadcn.Field>
   )
@@ -86,13 +86,8 @@ export default function App() {
     createDefaultOptions,
   )
 
-  const {
-    status,
-    flagCount,
-    boardConfig,
-    gridCells,
-    modelActions: model,
-  } = useGameModel()
+  const model = useGameModel()
+  const { status, flagCount, boardConfig, gridCells } = model
   const isReady = status === 'ready'
   const isPlaying = status === 'playing'
 
@@ -111,7 +106,6 @@ export default function App() {
         return
       } catch (error) {}
     }
-
     handleNewGame()
   }, [])
 
@@ -128,7 +122,13 @@ export default function App() {
   }
 
   return (
-    <div className="flex min-h-svh justify-center select-none">
+    <div
+      data-palette={options.palette}
+      className="flex min-h-svh justify-center select-none"
+      style={{
+        background: 'color-mix(in oklch, var(--c300) 10%, transparent)',
+      }}
+    >
       <div className="w-fit max-w-full space-y-3 p-4">
         <GameMenu
           boardConfig={boardConfig}

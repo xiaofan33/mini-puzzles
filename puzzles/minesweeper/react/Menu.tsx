@@ -32,7 +32,7 @@ export default function GameMenu(props: {
   return (
     <div className="flex items-center justify-between">
       <Shadcn.Select value={difficulty} onValueChange={handleSelectChange}>
-        <Shadcn.SelectTrigger className="w-24">
+        <Shadcn.SelectTrigger className="border-primary/30 w-24">
           {configs?.label ?? '自定义'}
         </Shadcn.SelectTrigger>
         <Shadcn.SelectContent>
@@ -55,7 +55,6 @@ export default function GameMenu(props: {
           </Shadcn.SelectGroup>
         </Shadcn.SelectContent>
       </Shadcn.Select>
-
       <Shadcn.Button
         variant="ghost"
         size="icon-lg"

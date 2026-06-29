@@ -1,15 +1,14 @@
 import { useMemo, useRef } from 'react'
 import { cn } from '@/lib/utils'
-import { cellAt } from '../utils'
+import { pickCell } from '../utils'
 import { useGameBoard } from './use'
 import type { UserOptions } from '../options'
 import type { Cell, Operation } from '../model'
 import { emojis } from '../assets/config.json'
 
-const GRADIENT =
-  'bg-linear-to-br from-(--cell-from) to-(--cell-to) border-(--cell-border)'
-const HI_GRADIENT =
-  'bg-linear-to-br from-(--cell-hi-from) to-(--cell-hi-to) border-(--cell-border)'
+const BASE_GRADIENT = 'bg-linear-to-br border-(--cell-border)'
+const GRADIENT = cn(BASE_GRADIENT, 'from-(--cell-from) to-(--cell-to)')
+const HI_GRADIENT = cn(BASE_GRADIENT, 'from-(--cell-hi-from) to-(--cell-hi-to)')
 
 export function BoardCell(props: Cell & { highlighted?: boolean }) {
   const { status, mine, adjacentMineCount, highlighted = false } = props
@@ -22,8 +21,9 @@ export function BoardCell(props: Cell & { highlighted?: boolean }) {
       return { txt: emojis['flag'] }
     }
     if (status === 'revealed') {
-      if (mine) return { txt: emojis['mine'] }
-
+      if (mine) {
+        return { txt: emojis['mine'] }
+      }
       const num = props.adjacentMineCount?.toString()
       return { txt: num, num }
     }
@@ -65,7 +65,7 @@ export default function GameBoard(props: {
 }) {
   const boardRef = useRef<HTMLDivElement>(null)
 
-  const { radius, size, gap, palette, flagMode } = props.options
+  const { radius, size, gap, flagMode } = props.options
   const columns = props.gridCells[0]?.length ?? 0
 
   const cssVars = useMemo(
@@ -83,10 +83,7 @@ export default function GameBoard(props: {
   const { enableHighlight, pointerPosition } = useGameBoard(
     boardRef,
     (op, p) => {
-      const grid = cellAt(p, size, gap)
-      if (!grid) return
-
-      const cell = props.gridCells[grid.y][grid.x]
+      const cell = pickCell(p, size, gap, props.gridCells)
       if (!cell) return
 
       let modifiedOp = op
@@ -104,11 +101,7 @@ export default function GameBoard(props: {
 
   const hoveredCell = useMemo(() => {
     if (!pointerPosition) return
-
-    const grid = cellAt(pointerPosition, size, gap)
-    if (!grid) return
-
-    return props.gridCells[grid.y][grid.x]
+    return pickCell(pointerPosition, size, gap, props.gridCells)
   }, [pointerPosition, size, gap, props.gridCells])
 
   const hoveredCellRef = useRef(hoveredCell)
@@ -136,7 +129,6 @@ export default function GameBoard(props: {
   return (
     <div
       style={cssVars}
-      data-palette={palette}
       className="mx-auto w-fit max-w-full overflow-auto p-0.5 select-none"
     >
       <div

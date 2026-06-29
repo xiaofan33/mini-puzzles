@@ -80,24 +80,27 @@ export function formatDuration(seconds: number) {
 }
 
 /**
- * Hit-test a pixel position against the grid.
- * Returns the cell's column/row index, or `undefined` if the position falls in a gap.
+ * Hit-test a pixel position against a 2D grid.
+ * Returns the cell at that position, or `undefined` if the position
+ * falls in a gap or outside the grid bounds.
  */
-export function cellAt(
+export function pickCell<T>(
   pos: { x: number; y: number },
-  cellSize: number,
+  size: number,
   gap: number,
+  grid: T[][],
 ) {
-  const stride = cellSize + gap
+  const stride = size + gap
   const col = Math.floor(pos.x / stride)
   const row = Math.floor(pos.y / stride)
 
   // position lands in the gap area between cells
-  if (pos.x - col * stride >= cellSize || pos.y - row * stride >= cellSize) {
-    return
-  }
+  if (pos.x - col * stride >= size || pos.y - row * stride >= size) return
 
-  return { x: col, y: row }
+  // position lands outside the grid bounds
+  if (row >= grid.length || col >= (grid[0]?.length ?? 0)) return
+
+  return grid[row][col]
 }
 
 function bytesToBase64Url(bytes: Uint8Array) {
