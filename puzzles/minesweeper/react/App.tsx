@@ -1,84 +1,17 @@
 import { useEffect, useLayoutEffect, useState } from 'react'
 import { Shadcn } from '@/components/ui'
 import { useLocalStorage } from '@/lib/hooks'
-import { isTouchDevice } from '@/lib/utils'
 import { createDefaultOptions, type UserOptions } from '../options'
 import { celebrateWin } from '../confetti'
-import {
-  decodeShareHash,
-  findDifficulty,
-  formatTime,
-  randomPalette,
-} from '../utils'
-import type { GameStatus, GameProps, BoardConfig } from '../model'
+import { decodeShareHash, formatTime } from '../utils'
+import type { GameStatus, GameProps } from '../model'
 import { useGameModel } from './use'
-import CustomOptions from './Custom'
+import { SwitchPalette, ToggleFlagMode, SelectDifficulty } from './Settings'
 import GameBoard from './Board'
 import GameShare from './Share'
-import { emojis, userOptionsKey, difficulties } from '../assets/config.json'
+import CustomDialog from './Custom'
+import { emojis, userOptionsKey } from '../assets/config.json'
 import '../assets/styles.css'
-
-export function Menu(props: {
-  palette: string
-  boardConfig: BoardConfig
-  onChange: (patch: Partial<UserOptions>) => void
-}) {
-  const current = findDifficulty(props.boardConfig)
-  const difficulty = current?.value || 'custom'
-
-  function handleSelectChange(value?: string | null) {
-    if (!value || value === 'custom') return
-
-    const matched = findDifficulty(value)
-    if (matched) {
-      const nextBoard = { w: matched.w, h: matched.h, m: matched.m }
-      props.onChange({ board: nextBoard })
-    }
-  }
-
-  return (
-    <div className="flex items-center justify-between">
-      <Shadcn.Select value={difficulty} onValueChange={handleSelectChange}>
-        <Shadcn.SelectTrigger className="border-primary/30 w-24">
-          {current?.label ?? '自定义'}
-        </Shadcn.SelectTrigger>
-        <Shadcn.SelectContent>
-          <Shadcn.SelectGroup>
-            {difficulties.map(d => (
-              <Shadcn.SelectItem key={d.value} value={d.value} className="h-8">
-                {d.label}
-                <span className="text-muted-foreground pl-3 font-mono tracking-widest">
-                  {d.w}x{d.h}
-                </span>
-              </Shadcn.SelectItem>
-            ))}
-            <Shadcn.Dialog>
-              <Shadcn.DialogTrigger className="w-full">
-                <Shadcn.SelectItem key="custom" value="custom" className="h-8">
-                  自定义
-                </Shadcn.SelectItem>
-              </Shadcn.DialogTrigger>
-              <CustomOptions
-                defaultValue={props.boardConfig}
-                onConfirm={b => props.onChange({ board: b })}
-              />
-            </Shadcn.Dialog>
-          </Shadcn.SelectGroup>
-        </Shadcn.SelectContent>
-      </Shadcn.Select>
-      <Shadcn.Button
-        variant="ghost"
-        size="icon-lg"
-        style={{ color: 'var(--accent-deep)' }}
-        onClick={() =>
-          props.onChange({ palette: randomPalette(props.palette) })
-        }
-      >
-        <i className="i-tabler-windmill animation-duration-5000 animate-spin text-xl" />
-      </Shadcn.Button>
-    </div>
-  )
-}
 
 export function Hud(props: {
   status: GameStatus
@@ -135,6 +68,8 @@ export default function App() {
     createDefaultOptions,
   )
 
+  const [dialogOpen, setDialogOpen] = useState(false)
+
   const model = useGameModel()
   const { status, flagCount, boardConfig, gridCells } = model
   const isReady = status === 'ready'
@@ -153,7 +88,7 @@ export default function App() {
         const props = decodeShareHash(hash)
         handleNewGame(props)
         return
-      } catch (error) {}
+      } catch {}
     }
     handleNewGame()
   }, [])
@@ -171,54 +106,58 @@ export default function App() {
   }
 
   return (
-    <div
-      data-palette={options.palette}
-      className="flex min-h-svh justify-center select-none"
-      style={{
-        background: 'color-mix(in oklch, var(--accent-soft) 10%, transparent)',
-      }}
-    >
-      <div className="w-fit max-w-full space-y-3 p-4">
-        <Menu
-          palette={options.palette}
-          boardConfig={boardConfig}
-          onChange={handleOptionsChange}
-        />
-        <Hud
-          status={status}
-          flagCount={flagCount}
-          mineCount={boardConfig.m}
-          getElapsedTime={model.getElapsedTime}
-          onNewGame={handleNewGame}
-        />
-        <GameBoard
-          isReady={isReady}
-          options={options}
-          gridCells={gridCells}
-          getAdjacentCells={model.getAdjacentCells}
-          onOperate={model.operate}
-        />
-        <div className="flex items-center justify-end">
-          {isPlaying && (
-            <>
-              {isTouchDevice() && (
-                <Shadcn.Field orientation="horizontal">
-                  <Shadcn.Checkbox
-                    id="flag-mode"
-                    className="border-foreground/20"
-                    checked={options.flagMode}
-                    onCheckedChange={v => handleOptionsChange({ flagMode: v })}
-                  />
-                  <Shadcn.Label htmlFor="flag-mode" className="py-2">
-                    插旗优先
-                  </Shadcn.Label>
-                </Shadcn.Field>
-              )}
-              <GameShare flagCount={flagCount} onDump={model.dump} />
-            </>
-          )}
+    <>
+      <div
+        data-palette={options.palette}
+        className="flex min-h-svh justify-center select-none"
+      >
+        <div className="w-fit max-w-full space-y-3 p-4">
+          <div className="flex items-center justify-between">
+            <SelectDifficulty
+              boardConfig={boardConfig}
+              onChange={v => handleOptionsChange({ board: v })}
+              onSelectCustom={() => setDialogOpen(true)}
+            />
+            <SwitchPalette
+              palette={options.palette}
+              onChange={v => handleOptionsChange({ palette: v })}
+            />
+          </div>
+
+          <Hud
+            status={status}
+            flagCount={flagCount}
+            mineCount={boardConfig.m}
+            getElapsedTime={model.getElapsedTime}
+            onNewGame={handleNewGame}
+          />
+          <GameBoard
+            isReady={isReady}
+            options={options}
+            gridCells={gridCells}
+            getAdjacentCells={model.getAdjacentCells}
+            onOperate={model.operate}
+          />
+          <div className="flex items-center justify-end">
+            {isPlaying && (
+              <>
+                <ToggleFlagMode
+                  checked={options.flagMode}
+                  onChange={v => handleOptionsChange({ flagMode: v })}
+                />
+                <GameShare flagCount={flagCount} onDump={model.dump} />
+              </>
+            )}
+          </div>
         </div>
       </div>
-    </div>
+
+      <CustomDialog
+        isOpen={dialogOpen}
+        boardConfig={boardConfig}
+        close={() => setDialogOpen(false)}
+        onChange={handleOptionsChange}
+      />
+    </>
   )
 }

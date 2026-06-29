@@ -1,3 +1,5 @@
+import { clamp } from '.'
+
 /**
  * Creates a rows×cols 2D array, filled with a static value or a function receiving (row, col)
  */
@@ -24,7 +26,7 @@ export function arrayShuffle<T>(items: T[], sampleSize?: number) {
   const sourceLength = items.length
   const targetLength =
     sampleSize !== undefined
-      ? Math.min(Math.max(0, Math.floor(sampleSize)), sourceLength)
+      ? clamp(Math.floor(sampleSize), 0, sourceLength)
       : sourceLength
 
   if (targetLength === 0) {
@@ -33,7 +35,9 @@ export function arrayShuffle<T>(items: T[], sampleSize?: number) {
 
   for (let i = 0; i < targetLength; i++) {
     const j = i + Math.floor(Math.random() * (sourceLength - i))
-    ;[items[i], items[j]] = [items[j], items[i]]
+    const temp = items[i]
+    items[i] = items[j]
+    items[j] = temp
   }
 
   return items.slice(0, targetLength)

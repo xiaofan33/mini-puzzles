@@ -1,4 +1,4 @@
-import { randomInt } from '@/lib/utils'
+import { clamp, randomInt } from '@/lib/utils'
 import type { BoardConfig, GameProps } from './model'
 import { difficulties, boardBounds, palettes } from './assets/config.json'
 
@@ -14,20 +14,26 @@ export function findDifficulty(input: BoardConfig | string) {
   return difficulties.find(d => d.w === w && d.h === h && d.m === m)
 }
 
+/**
+ * Compute valid mine count range [min, max] for a given total cell count.
+ */
+export function mineBounds(total: number) {
+  const { mineDensityMin: minP, mineDensityMax: maxP } = boardBounds
+  const min = Math.max(1, Math.ceil((total * minP) / 100))
+  const max = Math.min(Math.floor((total * maxP) / 100), total - 9)
+  return [min, max]
+}
+
 export function randomBoardConfig(): BoardConfig {
-  const w = randomInt(boardBounds.w.min, boardBounds.w.max)
-  const h = randomInt(boardBounds.h.min, boardBounds.h.max)
-  const percent = randomInt(
-    boardBounds.minePercent.min,
-    boardBounds.minePercent.max,
-  )
+  const { wMin, wMax, hMin, hMax, mineDensityMin, mineDensityMax } = boardBounds
+
+  const w = randomInt(wMin, wMax)
+  const h = randomInt(hMin, hMax)
   const total = w * h
-  const lo = Math.max(1, Math.ceil((total * boardBounds.minePercent.min) / 100))
-  const hi = Math.min(
-    Math.floor((total * boardBounds.minePercent.max) / 100),
-    total - 9,
-  )
-  const m = Math.max(lo, Math.min(hi, Math.round((total * percent) / 100)))
+  const percent = randomInt(mineDensityMin, mineDensityMax)
+
+  const [minM, maxM] = mineBounds(total)
+  const m = clamp(Math.round((total * percent) / 100), minM, maxM)
 
   return { w, h, m }
 }

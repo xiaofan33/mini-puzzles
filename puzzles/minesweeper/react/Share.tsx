@@ -12,7 +12,7 @@ const INFO_ITEMS = [
   {
     icon: 'i-lucide-grid-2x2',
     text: '宽高',
-    getValue: (d: ShareData) => `${d.w}x${d.h}`,
+    getValue: (d: ShareData) => `${d.w} x ${d.h}`,
   },
   {
     icon: 'i-lucide-bomb',
@@ -21,12 +21,12 @@ const INFO_ITEMS = [
   },
   {
     icon: 'i-lucide-flag',
-    text: '插旗统计',
-    getValue: (d: ShareData) => `${d.flagCount}/${d.m}`,
+    text: '插旗比',
+    getValue: (d: ShareData) => `${d.flagCount} : ${d.m}`,
   },
   {
     icon: 'i-lucide-timer',
-    text: '当前用时',
+    text: '已用时',
     getValue: (d: ShareData) =>
       d.elapsedTime ? formatDuration(Math.floor(d.elapsedTime / 1000)) : 'N/A',
   },
@@ -96,7 +96,7 @@ export default function Share(props: {
                 <span className="text-muted-foreground w-28 text-sm">
                   {item.text}
                 </span>
-                <span className="mr-auto font-mono text-sm tracking-widest">
+                <span className="mr-auto font-mono text-sm tracking-wider">
                   {shareData && item.getValue(shareData)}
                 </span>
               </div>

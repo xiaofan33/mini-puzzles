@@ -13,6 +13,13 @@ export function isTouchDevice() {
   return window.matchMedia(mediaQuery).matches
 }
 
+export function clamp(value: number, min: number, max: number) {
+  if (min > max) {
+    throw new RangeError('clamp: min must not exceed max')
+  }
+  return Math.min(Math.max(value, min), max)
+}
+
 /**
  * Format seconds into a compact duration string.
  * Omits any unit whose value is zero (e.g. 3600 → "1h", 60 → "1m").

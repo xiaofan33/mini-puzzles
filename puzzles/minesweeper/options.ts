@@ -33,7 +33,7 @@ export function createDefaultOptions(): UserOptions {
     palette: 'violet',
     size: 33,
     radius: 2,
-    gap: 2,
+    gap: 1,
     flagMode: false,
   }
 }
