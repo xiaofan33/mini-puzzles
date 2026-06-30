@@ -74,6 +74,7 @@ export default function App() {
   const { status, flagCount, boardConfig, gridCells } = model
   const isReady = status === 'ready'
   const isPlaying = status === 'playing'
+  const isGameEnd = status === 'won' || status === 'lost'
 
   useEffect(() => {
     if (status === 'won') {
@@ -138,20 +139,28 @@ export default function App() {
             getAdjacentCells={model.getAdjacentCells}
             onOperate={model.operate}
           />
-          <div className="flex items-center justify-end">
-            {isPlaying && (
-              <>
-                <ToggleFlagMode
-                  checked={options.flagMode}
-                  onChange={v => handleOptionsChange({ flagMode: v })}
-                />
-                <GameShare flagCount={flagCount} onDump={model.dump} />
-              </>
-            )}
-          </div>
+          {isPlaying && (
+            <div className="flex items-center justify-end">
+              <ToggleFlagMode
+                checked={options.flagMode}
+                onChange={v => handleOptionsChange({ flagMode: v })}
+              />
+              <GameShare flagCount={flagCount} onDump={model.dump} />
+            </div>
+          )}
+          {isGameEnd && (
+            <div className="flex items-center justify-center">
+              <Shadcn.Button
+                variant="outline"
+                size="icon-lg"
+                onClick={model.restart}
+              >
+                <i className="i-lucide-repeat" />
+              </Shadcn.Button>
+            </div>
+          )}
         </div>
       </div>
-
       <CustomDialog
         isOpen={dialogOpen}
         boardConfig={boardConfig}

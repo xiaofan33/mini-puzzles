@@ -81,7 +81,7 @@ export default function Share(props: {
           <Shadcn.Button variant="ghost" size="icon-lg" onClick={handleShare} />
         }
       >
-        <i className="i-lucide-share-2 text-lg" />
+        <i className="i-lucide-share-2" />
       </Shadcn.PopoverTrigger>
       <Shadcn.PopoverContent className="p-4">
         <div className="flex flex-col gap-2">
@@ -92,7 +92,7 @@ export default function Share(props: {
           <div className="mb-2 space-y-2">
             {INFO_ITEMS.map(item => (
               <div key={item.icon} className="flex items-center gap-2">
-                <i className={`${item.icon} text-base`} />
+                <i className={`${item.icon}`} />
                 <span className="text-muted-foreground w-28 text-sm">
                   {item.text}
                 </span>

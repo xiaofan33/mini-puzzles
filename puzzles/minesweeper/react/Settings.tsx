@@ -15,7 +15,7 @@ export function SwitchPalette(props: {
       style={{ color: 'var(--accent-deep)' }}
       onClick={() => props.onChange(randomPalette(props.palette))}
     >
-      <i className="i-tabler-windmill animation-duration-5000 animate-spin text-xl" />
+      <i className="i-lucide-paintbrush text-base" />
     </Shadcn.Button>
   )
 }

@@ -24,12 +24,12 @@
   ],
 
   "boardBounds": {
-    "wMin": 5,
-    "wMax": 50,
-    "hMin": 5,
-    "hMax": 50,
-    "mineDensityMin": 4,
-    "mineDensityMax": 60
+    "minW": 5,
+    "maxW": 50,
+    "minH": 5,
+    "maxH": 50,
+    "minDensity": 4,
+    "maxDensity": 60
   },
 
   "userOptionsKey": "g-minesweeper-options",

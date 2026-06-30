@@ -2,7 +2,9 @@
 @import 'tw-animate-css';
 @import 'shadcn/tailwind.css';
 
-@plugin '@egoist/tailwindcss-icons';
+@plugin '@egoist/tailwindcss-icons' {
+  scale: 1.2;
+}
 
 @custom-variant dark (&:where(.dark, .dark *));
 

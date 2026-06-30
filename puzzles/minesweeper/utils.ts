@@ -18,19 +18,19 @@ export function findDifficulty(input: BoardConfig | string) {
  * Compute valid mine count range [min, max] for a given total cell count.
  */
 export function mineBounds(total: number) {
-  const { mineDensityMin: minP, mineDensityMax: maxP } = boardBounds
-  const min = Math.max(1, Math.ceil((total * minP) / 100))
-  const max = Math.min(Math.floor((total * maxP) / 100), total - 9)
+  const { minDensity: minD, maxDensity: maxD } = boardBounds
+  const min = Math.max(1, Math.ceil((total * minD) / 100))
+  const max = Math.min(Math.floor((total * maxD) / 100), total - 9)
   return [min, max]
 }
 
 export function randomBoardConfig(): BoardConfig {
-  const { wMin, wMax, hMin, hMax, mineDensityMin, mineDensityMax } = boardBounds
+  const { minW, maxW, minH, maxH, minDensity, maxDensity } = boardBounds
 
-  const w = randomInt(wMin, wMax)
-  const h = randomInt(hMin, hMax)
+  const w = randomInt(minW, maxW)
+  const h = randomInt(minH, maxH)
   const total = w * h
-  const percent = randomInt(mineDensityMin, mineDensityMax)
+  const percent = randomInt(minDensity, maxDensity)
 
   const [minM, maxM] = mineBounds(total)
   const m = clamp(Math.round((total * percent) / 100), minM, maxM)
