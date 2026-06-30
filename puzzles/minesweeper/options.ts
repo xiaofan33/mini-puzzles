@@ -21,6 +21,9 @@ export interface UserOptions {
 
   /** Left-click places flag instead of reveal */
   flagMode: boolean
+
+  /** Whether mine density is locked when adjusting width/height */
+  lockDensity: boolean
 }
 
 export function createDefaultOptions(): UserOptions {
@@ -30,10 +33,11 @@ export function createDefaultOptions(): UserOptions {
       h: 9,
       m: 10,
     },
-    palette: 'violet',
-    size: 33,
+    palette: 'sky',
+    size: 32,
     radius: 2,
     gap: 1,
     flagMode: false,
+    lockDensity: false,
   }
 }

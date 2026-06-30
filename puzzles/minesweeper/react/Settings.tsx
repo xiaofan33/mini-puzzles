@@ -81,15 +81,20 @@ export function SelectDifficulty(props: {
               value={item.value}
               className="h-8"
             >
-              {item.label}
-              <span className="text-muted-foreground pl-3 font-mono tracking-wider">
+              <span className="w-10">{item.label}</span>
+              <span className="text-muted-foreground pl-1 font-mono tracking-wider">
                 {item.w}x{item.h}
               </span>
             </Shadcn.SelectItem>
           ))}
           {props.onSelectCustom && (
             <Shadcn.SelectItem value={customItem.value} className="h-8">
-              {customItem.label}
+              <span className="w-10">{customItem.label}</span>
+              {currentItem.value === 'custom' && (
+                <span className="text-muted-foreground pl-1 font-mono tracking-wider">
+                  {boardConfig.w}x{boardConfig.h}
+                </span>
+              )}
             </Shadcn.SelectItem>
           )}
         </Shadcn.SelectGroup>

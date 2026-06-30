@@ -163,9 +163,9 @@ export default function App() {
       </div>
       <CustomDialog
         isOpen={dialogOpen}
-        boardConfig={boardConfig}
-        close={() => setDialogOpen(false)}
-        onChange={handleOptionsChange}
+        defaultValue={options}
+        onOpenChange={setDialogOpen}
+        onConfirm={handleOptionsChange}
       />
     </>
   )
