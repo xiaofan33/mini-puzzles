@@ -1,8 +1,14 @@
+import { useState } from 'react'
 import { Shadcn } from '@/components/ui'
 import { isTouchDevice } from '@/lib/utils'
 import { findDifficulty, randomPalette } from '../utils'
 import type { BoardConfig } from '../model'
-import { difficulties } from '../assets/config.json'
+import { difficulties, cellSizeBounds } from '../assets/config.json'
+
+const cellSizeItems = Array.from(
+  { length: cellSizeBounds.max - cellSizeBounds.min + 1 },
+  (_, i) => i + cellSizeBounds.min,
+)
 
 export function SwitchPalette(props: {
   palette: string
@@ -10,13 +16,69 @@ export function SwitchPalette(props: {
 }) {
   return (
     <Shadcn.Button
-      variant="ghost"
+      variant="outline"
       size="icon-lg"
       style={{ color: 'var(--accent-deep)' }}
       onClick={() => props.onChange(randomPalette(props.palette))}
     >
       <i className="i-lucide-paintbrush text-base" />
     </Shadcn.Button>
+  )
+}
+
+export function SelectCellSize(props: {
+  size: number
+  onChange: (v: number) => void
+}) {
+  const [open, setOpen] = useState(false)
+  const items = cellSizeItems
+
+  function handleOpenChange(open: boolean) {
+    setOpen(open)
+    if (open) {
+      requestAnimationFrame(() => {
+        const popup = document.querySelector<HTMLElement>(
+          '[data-slot="dropdown-menu-content"]',
+        )
+        const checked = popup?.querySelector<HTMLElement>('[data-checked]')
+        if (checked) {
+          checked.scrollIntoView({ block: 'nearest' })
+        }
+      })
+    }
+  }
+
+  return (
+    <Shadcn.DropdownMenu open={open} onOpenChange={handleOpenChange}>
+      <Shadcn.DropdownMenuTrigger
+        render={
+          <Shadcn.Button size="icon-lg" variant="outline">
+            <i className="i-lucide-ruler text-base" />
+          </Shadcn.Button>
+        }
+      />
+      <Shadcn.DropdownMenuContent className="max-h-48 min-w-20">
+        <Shadcn.DropdownMenuRadioGroup
+          value={String(props.size)}
+          onValueChange={v => {
+            if (v) {
+              props.onChange(Number(v))
+              setOpen(false)
+            }
+          }}
+        >
+          {items.map(item => (
+            <Shadcn.DropdownMenuRadioItem
+              key={item}
+              value={String(item)}
+              className="font-mono"
+            >
+              {item}
+            </Shadcn.DropdownMenuRadioItem>
+          ))}
+        </Shadcn.DropdownMenuRadioGroup>
+      </Shadcn.DropdownMenuContent>
+    </Shadcn.DropdownMenu>
   )
 }
 

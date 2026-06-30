@@ -32,6 +32,11 @@
     "maxDensity": 60
   },
 
+  "cellSizeBounds": {
+    "min": 24,
+    "max": 48
+  },
+
   "userOptionsKey": "g-minesweeper-options",
 
   "emojis": {

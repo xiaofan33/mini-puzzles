@@ -16,8 +16,6 @@ export interface UserOptions {
   size: number
   /** Cell border radius (px) */
   radius: number
-  /** Cell gap (px) */
-  gap: number
 
   /** Left-click places flag instead of reveal */
   flagMode: boolean
@@ -36,8 +34,7 @@ export function createDefaultOptions(): UserOptions {
     palette: 'sky',
     size: 32,
     radius: 2,
-    gap: 1,
     flagMode: false,
-    lockDensity: false,
+    lockDensity: true,
   }
 }

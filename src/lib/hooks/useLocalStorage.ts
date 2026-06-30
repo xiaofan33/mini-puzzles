@@ -8,7 +8,15 @@ export function useLocalStorage<T>(key: string, initialValue: T | (() => T)) {
   const [storedValue, setStoredValue] = useState<T>(() => {
     try {
       const item = localStorage.getItem(key)
-      return item ? (JSON.parse(item) as T) : resolve(initialValue)
+      if (item) {
+        const init = resolve(initialValue)
+        const stored = JSON.parse(item) as T
+        if (init && typeof init === 'object' && !Array.isArray(init)) {
+          return { ...init, ...stored } as T
+        }
+        return stored
+      }
+      return resolve(initialValue)
     } catch {
       return resolve(initialValue)
     }

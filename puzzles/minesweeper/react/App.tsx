@@ -6,7 +6,12 @@ import { celebrateWin } from '../confetti'
 import { decodeShareHash, formatTime } from '../utils'
 import type { GameStatus, GameProps } from '../model'
 import { useGameModel } from './use'
-import { SwitchPalette, ToggleFlagMode, SelectDifficulty } from './Settings'
+import {
+  SwitchPalette,
+  ToggleFlagMode,
+  SelectDifficulty,
+  SelectCellSize,
+} from './Settings'
 import GameBoard from './Board'
 import GameShare from './Share'
 import CustomDialog from './Custom'
@@ -74,7 +79,7 @@ export default function App() {
   const { status, flagCount, boardConfig, gridCells } = model
   const isReady = status === 'ready'
   const isPlaying = status === 'playing'
-  const isGameEnd = status === 'won' || status === 'lost'
+  const isLostGame = status === 'lost'
 
   useEffect(() => {
     if (status === 'won') {
@@ -119,10 +124,16 @@ export default function App() {
               onChange={v => handleOptionsChange({ board: v })}
               onSelectCustom={() => setDialogOpen(true)}
             />
-            <SwitchPalette
-              palette={options.palette}
-              onChange={v => handleOptionsChange({ palette: v })}
-            />
+            <Shadcn.ButtonGroup>
+              <SelectCellSize
+                size={options.size}
+                onChange={v => handleOptionsChange({ size: v })}
+              />
+              <SwitchPalette
+                palette={options.palette}
+                onChange={v => handleOptionsChange({ palette: v })}
+              />
+            </Shadcn.ButtonGroup>
           </div>
 
           <Hud
@@ -148,14 +159,14 @@ export default function App() {
               <GameShare flagCount={flagCount} onDump={model.dump} />
             </div>
           )}
-          {isGameEnd && (
+          {isLostGame && (
             <div className="flex items-center justify-center">
               <Shadcn.Button
-                variant="outline"
+                variant="ghost"
                 size="icon-lg"
                 onClick={model.restart}
               >
-                <i className="i-lucide-repeat" />
+                <i className="i-lucide-repeat-1" />
               </Shadcn.Button>
             </div>
           )}

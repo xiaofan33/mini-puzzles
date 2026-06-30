@@ -65,8 +65,9 @@ export default function GameBoard(props: {
 }) {
   const boardRef = useRef<HTMLDivElement>(null)
 
-  const { radius, size, gap, flagMode } = props.options
+  const { radius, size, flagMode } = props.options
   const columns = props.gridCells[0]?.length ?? 0
+  const gap = size * 0.05
 
   const cssVars = useMemo(
     () =>
@@ -77,7 +78,7 @@ export default function GameBoard(props: {
         '--cell-radius': `${radius}px`,
         '--cell-size': `${size}px`,
       }) as Record<string, string>,
-    [columns, radius, size, gap],
+    [columns, radius, size],
   )
 
   const { enableHighlight, pointerPosition } = useGameBoard(
