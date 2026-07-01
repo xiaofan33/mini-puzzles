@@ -1,0 +1,38 @@
+{
+  "presets": [
+    {
+      "label": "4x4",
+      "boardSize": 4,
+      "spawnAtStart": 2,
+      "spawnPerMove": 1,
+      "spawnValueWeights": [
+        { "weight": 90, "value": 2 },
+        { "weight": 10, "value": 4 }
+      ],
+      "undoStackCapacity": 2
+    },
+    {
+      "label": "5x5",
+      "boardSize": 5,
+      "spawnAtStart": 3,
+      "spawnPerMove": 2,
+      "spawnValueWeights": [
+        { "weight": 80, "value": 2 },
+        { "weight": 20, "value": 4 }
+      ],
+      "undoStackCapacity": 2
+    },
+    {
+      "label": "6x6",
+      "boardSize": 6,
+      "spawnAtStart": 4,
+      "spawnPerMove": 3,
+      "spawnValueWeights": [
+        { "weight": 60, "value": 2 },
+        { "weight": 30, "value": 4 },
+        { "weight": 10, "value": 8 }
+      ],
+      "undoStackCapacity": 2
+    }
+  ]
+}

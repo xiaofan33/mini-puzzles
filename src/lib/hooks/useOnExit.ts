@@ -14,6 +14,10 @@ export function useOnExit(callback: () => void) {
   const hasExecuted = useRef(false)
 
   useEffect(() => {
+    // Reset on mount so Strict Mode's simulated unmount
+    // doesn't permanently disable the guard.
+    hasExecuted.current = false
+
     const runCallback = () => {
       if (hasExecuted.current) return
 
